@@ -1,0 +1,61 @@
+package xyz.woowa.dnf.character.application.query.service;
+
+import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.stereotype.Service;
+import xyz.woowa.dnf.character.application.command.port.outbound.CharacterRepository;
+import xyz.woowa.dnf.character.application.query.assembler.base.BaseDtoMapper;
+import xyz.woowa.dnf.character.application.query.dto.base.BaseDto;
+import xyz.woowa.dnf.character.application.query.port.inbound.GetCharacterDetailUseCase;
+import xyz.woowa.dnf.character.application.query.port.inbound.GetCharacterIdUseCase;
+import xyz.woowa.dnf.character.domain.Character;
+import xyz.woowa.dnf.character.domain.base.Base;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CharacterSearchFacade {
+    private final GetCharacterIdUseCase idQuery;
+    private final CharacterRepository repository;
+    private final GetCharacterDetailUseCase detailQuery;
+    private final BaseDtoMapper baseDtoMapper;
+
+    public List<BaseDto> searchAll(String server, String name) {
+        var refs = idQuery.getCharactersId(new GetCharacterIdUseCase.CharacterCommand(server, name));
+        if (refs.isEmpty()) {
+            return List.of();
+        }
+        var cmds = refs.stream()
+                .map(this::toCommand)
+                .toList();
+        return detailQuery.getAll(cmds).stream()
+                .map(baseDtoMapper::toDto)
+                .sorted(BaseDto::descByFame)
+                .toList();
+    }
+
+    public List<BaseDto> guildSearchAll(String guildName) {
+        List<Character> allByGuildName = repository.findAllByGuildName(Strings.toRootUpperCase(guildName));
+        return allByGuildName.stream()
+                .map(this::baseDtoHelper)
+                .sorted(BaseDto::descByFame)
+                .toList();
+    }
+    public List<BaseDto> adventureSearchAll(String adventureName) {
+        List<Character> allByAdventureName = repository.findAllByAdventureName(Strings.toRootUpperCase(adventureName));
+        return allByAdventureName.stream()
+                .map(this::baseDtoHelper)
+                .sorted(BaseDto::descByFame)
+                .toList();
+    }
+
+    private BaseDto baseDtoHelper(Character character) {
+        Base base = character.getBase();
+        return baseDtoMapper.toDto(base);
+    }
+
+    private GetCharacterDetailUseCase.Command toCommand(GetCharacterIdUseCase.Result result) {
+        return new GetCharacterDetailUseCase.Command(result.serverId(), result.id());
+    }
+}
