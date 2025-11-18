@@ -4,13 +4,12 @@
   align-items:center;
   gap:24px;
   padding:0 20px;
-  background:var(--bg);   /* 원하면 배경 유지, 아니면 다른 색 */
+  background:var(--bg);
   border-bottom:0;
-  color:#2AC1BC;          /* 기본 글자색 민트 */
+  color:#2AC1BC;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
 }
 
-/* 헤더 안 모든 텍스트·링크를 민트로 통일 */
 .detail-topbar .detail-brand,
 .detail-topbar .detail-nav a,
 .detail-topbar .detail-nav a:visited,

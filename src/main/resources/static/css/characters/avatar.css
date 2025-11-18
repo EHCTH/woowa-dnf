@@ -1,6 +1,5 @@
-/* ───────── 아바타 슬롯형 카드 ───────── */
 .section-card.avatar-card{
-  background:transparent;   /* 행(.avatar-grid) 자체를 카드처럼 */
+  background:transparent;
   border-radius:12px;
   padding:0;
   box-shadow:none;
@@ -27,7 +26,6 @@
   box-shadow:0 10px 30px rgba(15,23,42,.10);
 }
 
-/* 슬롯 라벨(좌측 굵게) + 포인트 바 */
 .slot{
   position:relative;
   font-weight:900; font-size:22px; color:#111827; letter-spacing:-.3px;
@@ -36,18 +34,16 @@
   content:"";
   position:absolute; left:-14px; top:50%; transform:translateY(-50%);
   width:6px; height:26px; border-radius:4px;
-  background:#22c55e;  /* 포인트 컬러 */
+  background:#22c55e;
   opacity:.25;
 }
 
-/* 1px 컬럼을 분리선처럼 */
 .avatar-card .divider{
   width:1px; height:100%;
   background:linear-gradient(#e5e7eb,#e5e7eb) no-repeat center/1px 60%;
   opacity:.9;
 }
 
-/* 아이콘 슬롯 프레임 */
 .avatar-card .icon-48{
   width:48px; height:48px; border-radius:10px; display:block;
   border:2px solid #eef2f7;
@@ -55,7 +51,7 @@
   background:#fff;
 }
 
-/* 이름 영역: 좌정렬, 굵게 */
+
 .avatar-card .name{
   display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
   text-align:left;
@@ -69,11 +65,11 @@
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 
-/* 오른쪽 엠블렘 칩 스택 */
+
 .avatar-card .emblem{ justify-content:flex-end; }
 .avatar-card .emblem-box{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
 
-/* 엠블렘 칩 (기존 변수 사용) */
+
 .emblem-line{
   display:inline-block; font-weight:700;
   border:1px solid var(--emblem-color); color:var(--emblem-color);
@@ -83,7 +79,7 @@
   max-width:360px;
 }
 
-/* 촘촘 모드 */
+
 .avatar-card.dense{ padding:0; }
 .avatar-card.dense .avatar-grid{
   grid-template-columns: 100px 1px 80px 1px 1fr 1px 0.8fr 1px 0.8fr;
@@ -100,12 +96,12 @@
 .avatar-card.dense .name .main{ font-size:16px; font-weight:800; }
 .avatar-card.dense .name .sub{ font-size:12px; margin-top:2px; }
 
-/* 칩/뱃지도 작게 */
+
 .avatar-card.dense .emblem-box{ gap:4px; }
 .avatar-card.dense .emblem-line{
   font-size:12px; padding:4px 8px; line-height:1;
   border-radius:8px; max-width: 240px;
 }
 
-/* 툴팁도 축소 */
+
 .avatar-card.dense .tooltip-card{ font-size:12px; padding:6px 8px; }

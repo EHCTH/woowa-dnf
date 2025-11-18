@@ -1,6 +1,4 @@
-/* ───────── Flag(칭호) 슬롯형 카드 ───────── */
 .section-card.flag-card{
-  /* 행 자체가 카드처럼 보이도록 외곽 래퍼는 투명 */
   background:transparent;
   border-radius:12px;
   padding:0;
@@ -14,7 +12,6 @@
   align-items:center;
   min-height:96px;
 
-  /* 슬롯형 카드 룩 */
   padding:16px 18px;
   border:1px solid #e6eef5;
   border-radius:16px;
@@ -36,18 +33,16 @@
   content:"";
   position:absolute; left:-14px; top:50%; transform:translateY(-50%);
   width:6px; height:26px; border-radius:4px;
-  background:#22c55e;   /* 포인트 컬러 */
+  background:#22c55e;
   opacity:.25;
 }
 
-/* 1px 분리선 */
 .flag-card .divider{
   width:1px; height:100%;
   background:linear-gradient(#e5e7eb,#e5e7eb) no-repeat center/1px 60%;
   opacity:.9;
 }
 
-/* 아이콘 영역(좌우로 나열) */
 .flag-card .flag-grid .col{ display:flex; align-items:center; gap:8px; }
 .flag-card .icons, .flag-card .art-icons{ gap:8px; }
 
@@ -58,7 +53,6 @@
   background:#fff;
 }
 
-/* 이름(좌정렬) */
 .flag-card .name{
   display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
   text-align:left;
@@ -72,11 +66,9 @@
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 
-/* 오른쪽 젬 칩 스택 */
 .flag-card .gem{ justify-content:flex-end; }
 .flag-card .gem-box{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
 
-/* 젬 칩(레어리티 컬러 사용) */
 .gem-line{
   display:inline-block; font-weight:700;
   border:1px solid var(--rarity-color); color:var(--rarity-color);
@@ -86,11 +78,9 @@
   max-width:360px;
 }
 
-/* ───────── Dense(미니) ───────── */
 .flag-card.dense{ padding:0; }
 
 .flag-card.dense .flag-grid{
-  /* 더 촘촘히 */
   grid-template-columns: 80px 1px 80px 1px 180px 1px 1fr 1px 0.8fr;
   column-gap:12px;
   min-height:56px;
@@ -110,5 +100,4 @@
   border-radius:8px; max-width:240px;
 }
 
-/* 툴팁 축소(있다면) */
 .flag-card.dense .tooltip-card{ font-size:12px; padding:6px 8px; }

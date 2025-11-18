@@ -24,7 +24,6 @@
 [data-tune-color="새겨진 돌풍의 기억"]    { --tune-color:green; }
 [data-tune-color="새겨진 볕의 기억"]    { --tune-color:red; }
 
-/* 유틸리티 */
 .rarity-text   { color: var(--rarity-color); }
 .rarity-border { border-color: var(--rarity-color); }
 .rarity-bg     { background: color-mix(in srgb, var(--rarity-color) 18%, white); }

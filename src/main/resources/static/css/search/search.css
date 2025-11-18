@@ -1,10 +1,10 @@
 .search-page {
-  max-width: 1200px;      /* 필요하면 1080/1280 등으로 조절 */
+  max-width: 1200px;
   margin: 28px auto;
   padding: 0 16px;
 }
 
-/* 검색바 */
+
 .search-bar{
   display:flex; gap:8px; align-items:center; flex-wrap:wrap;
   margin-bottom: 18px;

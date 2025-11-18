@@ -1,6 +1,3 @@
-/* ========== Character Header (네임스페이스: .character-page) ========== */
-
-/* 컨테이너: 화이트 카드 + 2열 그리드 */
 .character-page.card{
   background:#fff;
   color:#111827;
@@ -8,12 +5,11 @@
   box-shadow:0 10px 30px rgba(15,23,42,.08);
   padding:24px;
   display:grid;
-  grid-template-columns: 360px 1fr; /* 좌: 이미지, 우: 메타 */
+  grid-template-columns: 360px 1fr;
   gap:28px;
   align-items:start;
 }
 
-/* 좌측 이미지 영역 */
 .character-page .img-wrap{
   position:relative;
   height:280px;
@@ -43,12 +39,10 @@
   backdrop-filter:saturate(140%) blur(4px);
 }
 
-/* 우측 메타 박스 */
 .character-page .meta{
   padding:4px 0;
 }
 
-/* 이름 + 명성 */
 .character-page .name{
   font-size:44px;
   font-weight:900;
@@ -66,7 +60,6 @@
   letter-spacing:.2px;
 }
 
-/* 서버/모험단/길드 3열 */
 .character-page .sub{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
@@ -82,7 +75,6 @@
   line-height:1.15;
 }
 
-/* 첫 번째 값(서버)에 강조 밑줄 */
 .character-page .sub > div:first-child .value{
   display:inline-block;
   border-bottom:4px solid #0f172a;
@@ -90,7 +82,6 @@
   border-radius:2px;
 }
 
-/* 갱신 버튼(우측 영역과 어울리게) */
 .character-page .refresh-btn{
   margin-top:22px;
   padding:10px 16px;
@@ -105,7 +96,6 @@
   transition: all .12s ease;
 }
 
-/* 반응형: 폭이 줄면 1열 스택 */
 @media (max-width: 1024px){
   .character-page.card{
     grid-template-columns: 1fr;
