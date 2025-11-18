@@ -11,7 +11,6 @@ import xyz.woowa.dnf.character.application.query.dto.common.ReinforceDto;
 import xyz.woowa.dnf.character.application.query.dto.equipment.flag.FlagDto;
 import xyz.woowa.dnf.character.application.query.dto.equipment.flag.GemDto;
 import xyz.woowa.dnf.character.domain.equipment.avatar.vo.Detail;
-import xyz.woowa.dnf.character.domain.equipment.common.Status;
 import xyz.woowa.dnf.character.domain.equipment.equipment.vo.ItemProfile;
 import xyz.woowa.dnf.character.domain.equipment.equipment.vo.ReinForce;
 import xyz.woowa.dnf.character.domain.equipment.flag.Flag;
