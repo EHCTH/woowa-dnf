@@ -1,0 +1,20 @@
+.search-page {
+  max-width: 1200px;      /* 필요하면 1080/1280 등으로 조절 */
+  margin: 28px auto;
+  padding: 0 16px;
+}
+
+/* 검색바 */
+.search-bar{
+  display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+  margin-bottom: 18px;
+}
+.search-bar select,
+.search-bar input{
+  padding:8px 10px; border:1px solid #e5e7eb; border-radius:8px;
+  font-size:14px;
+}
+.search-bar button{
+  padding:8px 14px; border-radius:8px; border:0;
+  background:#111827; color:#fff; font-weight:700; cursor:pointer;
+}

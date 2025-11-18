@@ -1,0 +1,30 @@
+.tab-menu {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    margin: 20px 0;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-weight: bold;
+}
+
+.tab-button.active {
+    border-bottom: 2px solid blue;
+    background-color: #ffffff;
+    color: black;
+}
+
+.tab-content {
+    display: none;
+    padding: 10px;
+}
+
+.tab-content.active {
+    display: block;
+}

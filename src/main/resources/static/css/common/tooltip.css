@@ -1,0 +1,74 @@
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip-card{
+  position: absolute;
+  left: 0;             /* 기본은 좌측 정렬 */
+  top: 100%;           /* 트리거 아래쪽 */
+  transform: translateY(8px);
+  min-width: 280px;
+  max-width: 360px;
+  background: #111;
+  color: #eee;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.35);
+  z-index: 9999;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .15s ease, transform .15s ease;
+  pointer-events: none;       /* 카드 위에서 마우스가 걸려 숨지 않게 하려면 제거 */
+}
+
+/* 말풍선 화살표 */
+.tooltip-card::before{
+  content: "";
+  position: absolute;
+  top: -6px; left: 16px;
+  width: 12px; height: 12px;
+  background: #111;
+  transform: rotate(45deg);
+}
+
+/* 보여주기 (마우스/키보드 포커스) */
+.tooltip:hover .tooltip-card,
+.tooltip:focus-within .tooltip-card{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(4px);
+}
+
+/* 내용 스타일(선택) */
+.tooltip-card .t-title{ font-size:18px; color:skyblue; opacity:.8; margin-bottom:8px; }
+.tooltip-card .t-rarity{ font-size:18px; opacity:.8; margin-bottom:8px; }
+.tooltip-card .t-fame{ font-size:15px; color:#daa520; opacity:.8; margin-bottom:8px; }
+
+.tooltip-card .t-meta{ font-weight:800; color:skyblue; margin-bottom:2px; }
+.tooltip-card .t-sub{ opacity:.9; margin-bottom:6px; }
+
+.tooltip-card hr{ border:none; border-top:1px solid rgba(255,255,255,.1); margin:8px 0; }
+.tooltip-card .t-stats{ list-style:none; margin:0; padding:0; }
+.tooltip-card .t-stats li{ display:flex; justify-content:space-between; gap:12px; }
+.tooltip-card .s-name{ opacity:.9; }
+.tooltip-card .s-val{ font-weight:700; color:#8be9a0; }
+
+/* 테이블이 overflow:hidden이면 카드가 잘립니다 → 부모엔 overflow:visible 권장 */
+.equip-row, .equip-table, .page { overflow: visible; }
+
+.tooltip-line {
+  display: block;          /* 줄바꿈 효과 */
+  margin-bottom: .5rem;    /* 줄 간격 */
+}
+
+.tooltip-line:empty{
+  display:none;
+  margin:0;
+}
+
+.tooltip-card{
+  font-size:12px; padding:6px 8px;
+

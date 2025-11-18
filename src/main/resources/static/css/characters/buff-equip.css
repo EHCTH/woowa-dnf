@@ -1,0 +1,149 @@
+/* ───────── set-card 그대로 ───────── */
+.buff.set-card{
+  display:flex; align-items:center;
+  border:2px solid #111; border-radius:14px; background:#fff;
+  overflow: visible;
+  margin-bottom:1rem;
+}
+.buff.set-box{ gap:6px; }
+.buff.set-card .cell{ padding:.75rem 1rem; display:flex; align-items:center; justify-content:center; gap:.5rem; }
+.buff.set-card .divider{ border-right:1px solid #e5e7eb; }
+.buff.set-card .imageGroup img{ width:32px; height:32px; object-fit:contain; }
+.buff.set-card .title, .set-card .rarity, .set-card .points{ color:var(--rarity-color); font-weight:700; }
+
+/* ───────── 장비 슬롯형 카드 ───────── */
+.section-card .buff-equipment-card{
+  background:transparent; /* 행 카드 자체에 스타일을 줄 거라 바탕은 투명 */
+  border-radius:12px;
+}
+
+/* 행 한 줄을 ‘카드’처럼 보이게 */
+.buff-equipment-card .buff-equipment-grid{
+  display:grid;
+  grid-template-columns: 100px 1px 100px 1px 100px 1px 1fr 1px 1fr;
+  column-gap:24px;
+  align-items:center;
+  min-height:96px;
+
+  padding:16px 18px;                 /* 내부 여백 */
+  border:1px solid #e6eef5;          /* 연한 슬롯 테두리 */
+  border-radius:16px;
+  background:#ffffff;                 /* 카드 배경 */
+  box-shadow:0 6px 24px rgba(15,23,42,.06); /* 부드러운 그림자 */
+  transition:box-shadow .15s ease, border-color .15s ease, transform .05s ease;
+  margin-bottom:14px;                 /* 행 간격 */
+}
+
+/* 호버 시 살짝 강조 */
+.buff-equipment-card .buff-equipment-grid:hover{
+  border-color:#d8e3f1;
+  box-shadow:0 10px 30px rgba(15,23,42,.10);
+}
+
+/* 왼쪽 슬롯 라벨을 ‘슬롯답게’ 굵고 크게 + 좌측 포인트 바 */
+.slot{
+  position:relative;
+  font-weight:900; font-size:22px; color:#111827; letter-spacing:-.3px;
+}
+.slot::before{
+  content:"";
+  position:absolute; left:-14px; top:50%; transform:translateY(-50%);
+  width:6px; height:26px; border-radius:4px;
+  background:#22c55e;                /* 포인트 컬러(녹색) */
+  opacity:.25;                        /* 과하지 않게 */
+}
+
+/* 1px 컬럼을 실제 ‘슬롯 분리선’처럼 */
+.buff-equipment-card .divider{
+  width:1px; height:100%;
+  background:linear-gradient(#e5e7eb,#e5e7eb) no-repeat center/1px 60%;
+  opacity:.9;
+}
+
+/* 아이콘을 슬롯 틀처럼 (작은 테두리+그림자) */
+.buff-equipment-card .icon-48{
+  width:48px; height:48px; border-radius:10px; display:block;
+  border:2px solid #eef2f7;
+  box-shadow:0 2px 8px rgba(15,23,42,.08);
+  background:#fff;
+}
+
+/* 중앙 이름 영역을 ‘장비명 슬롯’처럼 굵게 */
+.buff-equipment-card .name{
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+  text-align:left;
+}
+.buff-equipment-card .name .main{
+  font-size:24px; font-weight:900; line-height:1.1;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;
+}
+.buff-equipment-card .name .sub{
+  margin-top:6px; font-size:14px; text-decoration:none;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* 오른쪽 칩 스택(강화/옵션) 정렬 */
+.buff-equipment-card .enchant{ justify-content:flex-end; }
+.buff-equipment-card .enchant-box{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+
+/* 리스트 형태 칩(불릿 제거) */
+.enchant-line{
+  list-style:none; padding-left:0; margin:0;
+
+  display:inline-block; font-weight:700;
+  border:1px solid #66cdaa; color:#2a9d8f;      /* 슬롯 칩 계열색 */
+  background:#fff; padding:8px 12px; border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  max-width:360px;
+}
+.enchant-line li + li{ margin-top:4px; }
+.enchant-line li{ display:flex; align-items:baseline; gap:6px; }
+
+/* 작은 보조칩(있다면) */
+.buff-equipment-card .badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 8px; border-radius:999px;
+  border:1px solid #dbeafe; color:#2563eb; background:#eff6ff;
+  font-weight:700; font-size:12px;
+}
+
+/* Compact 모드도 동일한 슬롯 룩 유지(사이즈만 축소) */
+/* ───────── buff-equipment: Dense(미니) ───────── */
+.buff-equipment-card.dense{ padding:0; }
+
+.buff-equipment-card.dense .buff-equipment-grid{
+  grid-template-columns: 80px 1px 80px 1px 1fr 1px 0.8fr;
+  column-gap: 12px;
+  min-height: 56px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 3px 14px rgba(15,23,42,.06);
+}
+
+.buff-equipment-card.dense .icon-48{
+  width:32px; height:32px; border-radius:8px;
+}
+
+.buff-equipment-card.dense .slot{
+  font-size:16px; font-weight:800;
+}
+
+.buff-equipment-card.dense .name .main{
+  font-size:16px; font-weight:800;
+}
+.buff-equipment-card.dense .name .sub{
+  font-size:12px; margin-top:2px;
+}
+
+/* 오른쪽 강화/옵션 칩(뱃지) 축소 */
+.buff-equipment-card.dense .enchant-box{ gap:4px; }
+.buff-equipment-card.dense .enchant-line{
+  font-size:12px; padding:4px 8px; line-height:1;
+  border-radius:8px; max-width:240px;
+}
+
+/* 툴팁도 축소 */
+.buff-equipment-card.dense .tooltip-card{
+  font-size:12px; padding:6px 8px;
+}

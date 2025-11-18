@@ -1,0 +1,35 @@
+[data-rarity="태초"]      { --rarity-color:#34d399; }
+[data-rarity="에픽"]      { --rarity-color:gold; }
+[data-rarity="레전더리"]  { --rarity-color:orange; }
+[data-rarity="유니크"]    { --rarity-color:#ff00ff; }
+[data-rarity="레어"]      { --rarity-color:#8a2be2; }
+[data-rarity="언커먼"]    { --rarity-color:skyblue; }
+[data-rarity="커먼"]      { --rarity-color:gray; }
+[data-rarity="신화"]      { --rarity-color:pink; }
+[data-rarity="언노운"]    { --rarity-color:gray; }
+
+[data-emblem-color="노란빛"]    { --emblem-color:#daa520; }
+[data-emblem-color="플래티넘"]    { --emblem-color:orange; }
+[data-emblem-color="붉은빛"]    { --emblem-color:red; }
+[data-emblem-color="녹색빛"]    { --emblem-color:green; }
+[data-emblem-color="푸른빛"]    { --emblem-color:blue; }
+[data-emblem-color="다색"]    { --emblem-color:purple; }
+
+[data-artifact-color="아티팩트블루"]    { --artifact-color:blue; }
+[data-artifact-color="아티팩트그린"]    { --artifact-color:green; }
+[data-artifact-color="아티팩트레드"]    { --artifact-color:red; }
+
+
+[data-tune-color="새겨진 해일의 기억"]    { --tune-color:blue; }
+[data-tune-color="새겨진 돌풍의 기억"]    { --tune-color:green; }
+[data-tune-color="새겨진 볕의 기억"]    { --tune-color:red; }
+
+/* 유틸리티 */
+.rarity-text   { color: var(--rarity-color); }
+.rarity-border { border-color: var(--rarity-color); }
+.rarity-bg     { background: color-mix(in srgb, var(--rarity-color) 18%, white); }
+
+.green-text { color: green; }
+.emblem-text {color: var(--emblem-color)}
+.artifact-text {color: var(--artifact-color)}
+.tune-text {color: var(--tune-color)}

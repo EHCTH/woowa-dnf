@@ -1,0 +1,111 @@
+/* ───────── 아바타 슬롯형 카드 ───────── */
+.section-card.avatar-card{
+  background:transparent;   /* 행(.avatar-grid) 자체를 카드처럼 */
+  border-radius:12px;
+  padding:0;
+  box-shadow:none;
+}
+
+.avatar-card .avatar-grid{
+  display:grid;
+  grid-template-columns: 250px 1px 200px 1px 1fr 1px 1fr 1px 1fr;
+  column-gap:24px;
+  align-items:center;
+  min-height:96px;
+
+  padding:16px 18px;
+  border:1px solid #e6eef5;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 6px 24px rgba(15,23,42,.06);
+  transition:box-shadow .15s ease, border-color .15s ease, transform .05s ease;
+  margin-bottom:14px;
+}
+
+.avatar-card .avatar-grid:hover{
+  border-color:#d8e3f1;
+  box-shadow:0 10px 30px rgba(15,23,42,.10);
+}
+
+/* 슬롯 라벨(좌측 굵게) + 포인트 바 */
+.slot{
+  position:relative;
+  font-weight:900; font-size:22px; color:#111827; letter-spacing:-.3px;
+}
+.slot::before{
+  content:"";
+  position:absolute; left:-14px; top:50%; transform:translateY(-50%);
+  width:6px; height:26px; border-radius:4px;
+  background:#22c55e;  /* 포인트 컬러 */
+  opacity:.25;
+}
+
+/* 1px 컬럼을 분리선처럼 */
+.avatar-card .divider{
+  width:1px; height:100%;
+  background:linear-gradient(#e5e7eb,#e5e7eb) no-repeat center/1px 60%;
+  opacity:.9;
+}
+
+/* 아이콘 슬롯 프레임 */
+.avatar-card .icon-48{
+  width:48px; height:48px; border-radius:10px; display:block;
+  border:2px solid #eef2f7;
+  box-shadow:0 2px 8px rgba(15,23,42,.08);
+  background:#fff;
+}
+
+/* 이름 영역: 좌정렬, 굵게 */
+.avatar-card .name{
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+  text-align:left;
+}
+.avatar-card .name .main{
+  font-size:24px; font-weight:900; line-height:1.1;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;
+}
+.avatar-card .name .sub{
+  margin-top:6px; font-size:14px; text-decoration:none;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* 오른쪽 엠블렘 칩 스택 */
+.avatar-card .emblem{ justify-content:flex-end; }
+.avatar-card .emblem-box{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+
+/* 엠블렘 칩 (기존 변수 사용) */
+.emblem-line{
+  display:inline-block; font-weight:700;
+  border:1px solid var(--emblem-color); color:var(--emblem-color);
+  background:#fff; padding:8px 12px; border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  max-width:360px;
+}
+
+/* 촘촘 모드 */
+.avatar-card.dense{ padding:0; }
+.avatar-card.dense .avatar-grid{
+  grid-template-columns: 100px 1px 80px 1px 1fr 1px 0.8fr 1px 0.8fr;
+  column-gap: 12px;
+  min-height: 56px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 3px 14px rgba(15,23,42,.06);
+}
+
+.avatar-card.dense .icon-48{ width:32px; height:32px; border-radius:8px; }
+
+.avatar-card.dense .slot{ font-size:16px; font-weight:800; }
+.avatar-card.dense .name .main{ font-size:16px; font-weight:800; }
+.avatar-card.dense .name .sub{ font-size:12px; margin-top:2px; }
+
+/* 칩/뱃지도 작게 */
+.avatar-card.dense .emblem-box{ gap:4px; }
+.avatar-card.dense .emblem-line{
+  font-size:12px; padding:4px 8px; line-height:1;
+  border-radius:8px; max-width: 240px;
+}
+
+/* 툴팁도 축소 */
+.avatar-card.dense .tooltip-card{ font-size:12px; padding:6px 8px; }

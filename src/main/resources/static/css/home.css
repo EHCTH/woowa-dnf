@@ -1,0 +1,145 @@
+/* ===== BAEMIN MINT THEME (FULL CSS) ===== */
+:root{
+  --bg:#2AC1BC;                 /* 배민 민트 단색 배경 */
+  --panel:transparent;
+  --text:#ffffff;               /* 기본 텍스트 */
+  --muted:rgba(255,255,255,.85);
+  --accent:#ffffff;             /* 타이틀/포인트 */
+  --accent-press:#167e78;       /* 버튼 호버용 진한 민트 */
+  --form:#ffffff;               /* 검색바 카드 배경 */
+  --shadow:0 14px 40px rgba(0,0,0,.18);
+  --ring:0 0 0 3px rgba(42,193,188,.35); /* 포커스 링 */
+}
+
+/* 접근성용 숨김 레이블 */
+.sr-only{
+  position:absolute!important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* ================== LAYOUT ================== */
+.search-landing{
+  min-height:100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+}
+
+/* 상단바 */
+.sl-topbar{
+  height:56px;
+  display:flex;
+  align-items:center;
+  gap:24px;
+  padding:0 20px;
+  background:transparent;
+  border-bottom:0;
+}
+.sl-brand{ color:#fff; font-weight:900; letter-spacing:.5px; font-size:20px; }
+.sl-nav{ display:flex; gap:20px; }
+.sl-nav a{ color:var(--muted); text-decoration:none; opacity:1; font-weight:700; }
+.sl-nav a[aria-current="page"]{ color:#fff; }
+.sl-spacer{ flex:1; }
+
+/* (옵션) 안내 배너 */
+.sl-banner{
+  background:#7dd3fc; color:#0b1220; text-align:center;
+  font-weight:800; padding:10px 12px; letter-spacing:.2px;
+}
+
+/* 히어로 영역 */
+.sl-hero{
+  max-width: 1200px;
+  margin: 80px auto 0;
+  padding: 0 24px 80px;
+  text-align:center;
+}
+.sl-title{
+  font-size:96px; font-weight:900; letter-spacing:.02em; margin:30px 0 40px;
+  color:#fff;
+  text-shadow: 0 6px 18px rgba(0,0,0,.15);
+}
+
+/* ================== SEARCH FORM ================== */
+.sl-form{
+  display:grid;
+  /* select | input | button */
+  grid-template-columns: 220px minmax(700px, 1fr) 180px;
+  gap:16px;
+  background:#fff;
+  border-radius:16px;
+  padding:16px;
+  box-shadow: var(--shadow);
+  align-items:stretch;            /* 세 칸 높이를 동일하게 */
+}
+
+/* 그리드 아이템이 트랙 폭을 꽉 쓰도록 */
+.sl-select,
+.sl-input{ justify-self:stretch; width:100%; }
+
+/* 공통 필드 */
+.sl-field select,
+.sl-field input{
+  height:60px;
+  width:100%;
+  max-width:none;
+  font-size:18px;
+  padding:16px 14px;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  outline:none;
+  background:#fff;
+  box-sizing:border-box;
+}
+.sl-field select:focus,
+.sl-field input:focus{
+  box-shadow: var(--ring);
+  border-color:#2AC1BC;
+}
+
+/* select 화살표 간단 커스텀 */
+.sl-select select{
+  appearance:none;
+  -webkit-appearance:none;
+  padding-right:32px;                       /* 화살표 영역 확보 */
+  background-image: linear-gradient(45deg, #999 50%, transparent 50%),
+                    linear-gradient(135deg, #999 50%, transparent 50%);
+  background-position: calc(100% - 18px) 52%, calc(100% - 12px) 52%;
+  background-size:6px 6px, 6px 6px;
+  background-repeat:no-repeat;
+}
+
+/* 버튼: 기본 화이트, 호버 시 민트 반전 */
+.sl-button{
+  height:60px;
+  justify-self:end;
+  min-width:180px;
+  width:auto;                  /* 입력칸을 덮지 않게 */
+  padding:0 28px;
+  border-radius:12px;
+  border:2px solid transparent;
+  background:#fff;
+  color:#167e78;
+  font-weight:900;
+  letter-spacing:.6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
+  position:static;
+  z-index:0;
+}
+.sl-button:hover{
+  background:#167e78;
+  color:#fff;
+  transform:translateY(-1px);
+}
+.sl-button:focus{ box-shadow: var(--ring); outline:none; }
+
+/* 에러 메시지 */
+.sl-errors{ margin-top:14px; min-height:20px; }
+.sl-errors .error{ color:#fca5a5; font-weight:700; }
+
+/* 반응형 */
+@media (max-width:960px){
+  .sl-title{ font-size:64px; }
+  .sl-form{ grid-template-columns: 1fr; }
+  .sl-button{ width:100%; min-width:0; justify-self:stretch; }
+}

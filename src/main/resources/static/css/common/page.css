@@ -1,0 +1,8 @@
+.page{
+  max-width: 1200px;         /* 폭 고정 + 가운데 정렬 */
+  margin-inline: auto;
+  padding-inline: 16px;       /* 좌우 여백 */
+}
+@media (min-width: 1024px){
+  .page{ padding-inline: 24px; }
+}

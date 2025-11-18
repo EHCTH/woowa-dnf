@@ -1,0 +1,121 @@
+/* ========== Character Header (네임스페이스: .character-page) ========== */
+
+/* 컨테이너: 화이트 카드 + 2열 그리드 */
+.character-page.card{
+  background:#fff;
+  color:#111827;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(15,23,42,.08);
+  padding:24px;
+  display:grid;
+  grid-template-columns: 360px 1fr; /* 좌: 이미지, 우: 메타 */
+  gap:28px;
+  align-items:start;
+}
+
+/* 좌측 이미지 영역 */
+.character-page .img-wrap{
+  position:relative;
+  height:280px;
+  border-radius:14px;
+  overflow:hidden;
+  display:flex; align-items:flex-end; justify-content:center;
+  background:
+    radial-gradient(70% 80% at 50% 30%, rgba(255,255,255,.06), rgba(0,0,0,.25)),
+    linear-gradient(180deg, #1f2937 0%, #0f172a 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+}
+.character-page .char-img{
+  height:92%;
+  width:auto;
+  image-rendering:-webkit-optimize-contrast;
+  filter: drop-shadow(0 6px 18px rgba(15,23,42,.35));
+}
+
+.character-page .job-badge{
+  position:absolute;
+  left:16px; bottom:12px;
+  padding:6px 10px;
+  border-radius:10px;
+  font-weight:800;
+  color:#f6d265;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:saturate(140%) blur(4px);
+}
+
+/* 우측 메타 박스 */
+.character-page .meta{
+  padding:4px 0;
+}
+
+/* 이름 + 명성 */
+.character-page .name{
+  font-size:44px;
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1.05;
+  margin:0 0 8px;
+}
+.character-page .fame{
+  display:flex; align-items:center; gap:10px;
+  margin:4px 0 18px;
+}
+.character-page .fame-icon{ width:28px; height:28px; }
+.character-page .fame-value{
+  font-size:28px; font-weight:900; color:#16a34a;
+  letter-spacing:.2px;
+}
+
+/* 서버/모험단/길드 3열 */
+.character-page .sub{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:26px;
+  margin-top:6px;
+}
+.character-page .sub .label{
+  font-size:14px; font-weight:800; color:#64748b; letter-spacing:.02em;
+  margin-bottom:6px;
+}
+.character-page .sub .value{
+  font-size:28px; font-weight:900; color:#111827;
+  line-height:1.15;
+}
+
+/* 첫 번째 값(서버)에 강조 밑줄 */
+.character-page .sub > div:first-child .value{
+  display:inline-block;
+  border-bottom:4px solid #0f172a;
+  padding-bottom:4px;
+  border-radius:2px;
+}
+
+/* 갱신 버튼(우측 영역과 어울리게) */
+.character-page .refresh-btn{
+  margin-top:22px;
+  padding:10px 16px;
+  border:0; border-radius:10px;
+  background:#f59e0b; color:#111827; font-weight:900;
+  box-shadow:0 6px 16px rgba(245,158,11,.25);
+  cursor:pointer;
+}
+.character-page .refresh-btn:hover{
+  filter:brightness(1.05);
+  transform:translateY(-1px);
+  transition: all .12s ease;
+}
+
+/* 반응형: 폭이 줄면 1열 스택 */
+@media (max-width: 1024px){
+  .character-page.card{
+    grid-template-columns: 1fr;
+    padding:18px;
+  }
+  .character-page .img-wrap{ height:360px; }
+  .character-page .name{ font-size:36px; }
+  .character-page .sub{
+    grid-template-columns: 1fr;
+    gap:16px;
+  }
+  .character-page .sub .value{ font-size:24px; }
+}
