@@ -4,10 +4,7 @@ import lombok.*;
 import xyz.woowa.dnf.character.domain.equipment.common.Enchant;
 
 @Getter
-@ToString
-@EqualsAndHashCode
-@Builder(toBuilder = true)
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class EquipmentItem {
     @NonNull private final ItemProfile baseItemProfile;
     @NonNull private final ReinForce reinForce;
