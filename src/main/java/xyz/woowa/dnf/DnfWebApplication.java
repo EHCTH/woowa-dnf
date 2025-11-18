@@ -8,5 +8,4 @@ public class DnfWebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DnfWebApplication.class, args);
 	}
-
 }
