@@ -26,12 +26,13 @@ class EquipmentDtoMapperTest {
     @Test
     @DisplayName("DTO 변환 테스트")
     void DTO_변환_테스트() {
-
+        // give
         Equipment equipment = createEquipment();
 
+        // when
         EquipmentDto dto = equipmentDtoMapper.toMap(equipment);
-        System.out.println(dto.getEquipmentItems());
 
+        // then
         SetItemInfoDto setItemInfoDto = dto.getSetItemInfo();
         assertThat(setItemInfoDto.getBaseItem()).isEqualTo(new ItemValue("7f788a703a87d783079b41d0fe6448c9", "영원히 이어지는 황금향 세트"));
         assertThat(setItemInfoDto.getItemExplainHtml()).isEqualTo("아이템 설명");
