@@ -1,21 +1,20 @@
 package xyz.woowa.dnf.character.domain.equipment.equipment.vo;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RaritySetPointTest {
     @DisplayName("computeSetPoint: 경계값/대표값 매핑 확인")
     @ParameterizedTest(name = "{index} => input={0} → expected={1}")
     @MethodSource("cases")
     void computeSetPoint_shouldReturnExpected(int input, RaritySetPoint expected) {
-        assertEquals(expected, RaritySetPoint.computeSetPoint(input));
+        assertThat(RaritySetPoint.computeSetPoint(input)).isEqualTo(expected);
     }
 
     static Stream<Arguments> cases() {
