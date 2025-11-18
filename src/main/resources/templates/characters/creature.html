@@ -13,9 +13,7 @@
          th:object="${character.creature}">
         <div class="creature-grid">
 
-            <!-- 1) 크리쳐/클론 아이콘 -->
             <div class="col icons">
-                <!-- base creature -->
                 <div class="tooltip" tabindex="0">
                     <img class="icon-48"
                          th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
@@ -49,8 +47,6 @@
                     </div>
                 </div>
 
-
-                <!-- clone creature -->
                 <div class="tooltip" tabindex="0" th:if="*{clone.hasId}">
                     <img class="icon-48"
                          th:src="|https://img-api.neople.co.kr/df/items/*{clone.id}|"
@@ -63,7 +59,6 @@
 
             <div class="divider"></div>
 
-            <!-- 2) 아티팩트 아이콘들 -->
             <div class="col art-icons">
                 <div class="tooltip" tabindex="0"
                      th:each="artifact : *{artifacts}" th:object="${artifact}">
@@ -87,10 +82,8 @@
                 </div>
             </div>
 
-<!--             3) 세로 구분선 -->
             <div class="divider"></div>
 
-            <!-- 4) 이름/클론명 (중앙) -->
             <div class="col name">
                 <div class="main rarity-text"
                      th:attr="data-rarity=*{base.rarity}"
@@ -98,10 +91,8 @@
                 <div th:text="*{clone.name}">클론크리쳐 </div>
             </div>
 
-            <!-- 5) 세로 구분선 -->
             <div class="divider"></div>
 
-            <!-- 6) 오른쪽 아티팩트 pill 리스트 -->
             <div class="col artifact">
                 <div class="artifact-box">
                   <span class="artifact-line"

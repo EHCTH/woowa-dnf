@@ -18,7 +18,6 @@
     </header>
 
     <div class="page">
-        <!-- 폼 -->
         <form class="search-bar"
               th:action="@{/search}"
               th:object="${characterForm}"
@@ -33,7 +32,6 @@
                 </select>
                 <span class="error" th:if="${#fields.hasErrors('server')}" th:errors="*{server}">오류</span>
             </p>
-            <!---->
             <p>
                 <label th:for="*{name}"></label>
                 <input type="text" th:field="*{name}" placeholder="이름을 입력해주세요">
@@ -46,7 +44,6 @@
 
 
         <div class="character-page card" th:object="${character.base}">
-            <!-- 좌측: 캐릭터 이미지 -->
             <div class="character-page img-wrap">
                 <img class="character-page char-img"
                      th:src="*{image} ?: @{/image/characters/placeholder.png}"
@@ -105,7 +102,6 @@
                 </button>
             </div>
 
-            <!-- 초기 표시할 패널에 active -->
             <div id="tab-equipment" class="tab-content active"
                  th:insert="~{characters/equipment :: equipmentFragment}"></div>
 

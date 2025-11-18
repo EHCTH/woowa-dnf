@@ -13,9 +13,7 @@
          th:object="${character.flag}">
         <div class="flag-grid">
 
-            <!-- 1) flag/gem 아이콘 -->
             <div class="col icons">
-                <!-- base flag -->
                 <div class="tooltip" tabindex="0">
                     <img class="icon-48"
                          th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
@@ -47,7 +45,6 @@
 
             <div class="divider"></div>
 
-            <!-- 2) 젬 아이콘들 -->
             <div class="col art-icons">
                 <div class="tooltip" tabindex="0"
                      th:each="gem : *{gems}" th:object="${gem}">

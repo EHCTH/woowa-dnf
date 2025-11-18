@@ -5,7 +5,6 @@
     <title>WOOWA-DNF</title>
 </head>
 <body class="search-landing">
-<!-- 상단 네비(옵션) -->
     <header class="sl-topbar">
         <div class="sl-brand">WOOWA-DNF</div>
         <nav class="sl-nav">
@@ -14,7 +13,6 @@
         <div class="sl-spacer"></div>
     </header>
 
-    <!-- 히어로 -->
     <section class="sl-hero">
         <h1 class="sl-title">WOOWA-DNF</h1>
 
@@ -22,7 +20,6 @@
               th:action="@{/search}"
               th:object="${characterForm}"
               method="get">
-            <!-- 서버 -->
             <div class="sl-field sl-select">
                 <label class="sr-only" th:for="*{server}">서버</label>
                 <select th:field="*{server}">
@@ -33,14 +30,12 @@
                 </select>
             </div>
 
-            <!-- 이름 -->
             <div class="sl-field sl-input">
                 <label class="sr-only" th:for="*{name}">이름</label>
                 <input type="text" th:field="*{name}"
                        th:placeholder="#{page.place.holder.name}">
             </div>
 
-            <!-- 버튼 -->
             <button type="submit" class="sl-button"
                     th:text="#{page.button}"
             ></button>
