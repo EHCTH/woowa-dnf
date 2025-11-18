@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/search/search.css}">
+    <link rel="stylesheet" th:href="@{/css/search/search-detail.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+
+    <title>유저 리스트</title>
+</head>
+<body class="search-landing">
+    <header class="sl-topbar">
+        <div class="sl-brand">WOOWA-DNF</div>
+        <nav class="sl-nav">
+            <a href="/" aria-current="page">캐릭터 검색</a>
+        </nav>
+        <div class="sl-spacer"></div>
+    </header>
+
+    <div class="search-page">
+        <!-- 상단 검색바 (GET) -->
+        <form class="search-bar"
+              th:action="@{/search}"
+              th:object="${characterForm}"
+              method="get">
+            <p>
+                <label th:for="*{server}"></label>
+                <select th:field="*{server}">
+                    <option th:each="server : ${servers}"
+                            th:value="${server.english}"
+                            th:text="${server.korean}">
+                    </option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('server')}" th:errors="*{server}">오류</span>
+            </p>
+
+            <p>
+                <label th:for="*{name}"></label>
+                <input type="text" th:field="*{name}" placeholder="이름을 입력해주세요">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">오류</span>
+            </p>
+
+            <p>
+                <button type="submit">검색</button>
+            </p>
+        </form>
+
+        <!-- 카드 그리드 -->
+        <div class="search-page char-list">
+            <div class="char-card" th:each="character : ${characters}" th:object="${character}">
+                <a th:href="@{/characters/{server}/{id}(server=*{serverId}, id=*{characterId})}">
+                    <div class="card">
+                        <div class="badge-left" th:text="*{serverName}">카인</div>
+                        <div class="badge-right" th:text="*{jobGrowName}">眞 헌터</div>
+
+                        <div class="img-wrap">
+                            <img th:src="*{image}" th:alt="*{characterName}">
+                        </div>
+
+                        <div class="meta">
+                            <div class="sub">
+                                <span class="adventure" th:text="*{adventureName} ?: '-'">ORACLE</span>
+                                <span class="sep">|</span>
+                                <span class="guild" th:text="*{guildName} ?: '-'">아람</span>
+                            </div>
+                            <div class="fame">
+                                <img class="fame-icon" th:src="@{/image/search/fame_icon.png}" alt="">
+                                <span class="fame-value" th:text="*{fame}">78219</span>
+                            </div>
+                            <div class="name" th:text="*{characterName}">JAVA</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

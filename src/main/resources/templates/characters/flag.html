@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="flagFragment"
+      lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>flag</title>
+</head>
+<body>
+<div class="page">
+    <div class="section-card flag-card dense"
+         th:if="${character.flag.base.hasId}"
+         th:object="${character.flag}">
+        <div class="flag-grid">
+
+            <!-- 1) flag/gem 아이콘 -->
+            <div class="col icons">
+                <!-- base flag -->
+                <div class="tooltip" tabindex="0">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card">
+
+                        <span class="t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.itemName.name}">휘장</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
+                        <span class="tooltip-line" th:utext="*{baseStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detailStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{otherStatusHtml}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col reinforce" th:classappend="*{reinforce.reinforceClassType}">
+                <span th:text="'+' + *{reinforce.value}">+0</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 2) 젬 아이콘들 -->
+            <div class="col art-icons">
+                <div class="tooltip" tabindex="0"
+                     th:each="gem : *{gems}" th:object="${gem}">
+                    <img class="icon-48"
+                         th:if="*{base.itemName.hasId}"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card" th:attr="data-rarity=*{base.rarity}">
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity-color=*{base.rarity}"
+                              th:text="*{base.itemName.name}">젬 네임</span>
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
+                        <span class="tooltip-line" th:utext="*{baseStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detailStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{otherStatusHtml}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+
+            <div class="col name">
+                <div class="main rarity-text"
+                     th:attr="data-rarity=*{base.rarity}"
+                     th:text="*{base.itemName.name}">휘장
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col gem">
+                <div class="gem-box">
+                      <span class="gem-line"
+                            th:each="gem : *{gems}" th:object="${gem}"
+                            th:with="color=*{base.rarity}, nm=*{base.itemName.name}"
+                            th:attr="data-rarity=*{base.rarity}"
+                            th:text="${nm}">젬
+                      </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

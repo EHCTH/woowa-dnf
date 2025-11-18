@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="buffFragment"
+      lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- 버프 정보-->
+    <div class="buff set-card set-box rarity-text"
+         th:attr="data-rarity='유니크'"
+         th:if="${character.buffEquipment.hasSkillInfo}"
+         th:object="${character.buffEquipment.skillInfo}">
+        <div class="cell divider set-line" style="width:80px;">버프 강화</div>
+
+        <div class="tooltip" tabindex="0">
+            <div class="cell divider" style="flex:1 1 auto;">
+                <span class="title" th:text="*{name}">버프 이름</span>
+                <div class="tooltip-card">
+                    <span class="tooltip-line" th:utext="*{description}">옵션 설명</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cell" style="width:120px;">
+            <span th:text="|+*{level} 레벨|">레벨</span>
+        </div>
+    </div>
+
+    <!-- 버프 정보-->
+
+
+    <!-- 장비 -->
+
+    <div class="section-card buff-equipment-card dense"
+         th:each="equipment : ${character.buffEquipments}" th:object="${equipment}">
+        <div class="buff-equipment-grid">
+            <!-- 1) equipment/enchant 아이콘 -->
+            <div class="col slot" th:text="*{base.slot}">무기</div>
+
+            <div class="divider"></div>
+
+            <div class="col icons">
+                <!-- base equipment -->
+                <div class="tooltip" tabindex="0" th:if="*{base.itemName.hasId}">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card">
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.itemName.name}">찬란한 황금향의 축복 - 목걸이</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
+
+                        <span class="tooltip-line" th:utext="*{baseStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detailStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{otherStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{itemExplainHtml}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col name">
+                <div class="main rarity-text"
+                     th:attr="data-rarity=*{base.rarity}"
+                     th:text="*{base.itemName.name}">짙은 심연의 편린 크로스슈터 : 사냥을 시작해볼까!
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col name" th:if="*{skill.hasName}">
+                <span class="green-text" th:text="|*{skill.name} +*{skill.value}|"> 사냥을 시작해볼까! +2</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 장비 -->
+
+
+    <!-- 아바타 -->
+    <div class="section-card avatar-card dense"
+         th:each="avatar : ${character.buffAvatars}"
+         th:object="${avatar}">
+        <div class="avatar-grid">
+            <!-- 1) avatar/emblem 아이콘 -->
+            <div class="col slot" th:text="*{base.slot}">무기</div>
+
+            <div class="divider"></div>
+
+            <div class="col icons">
+                <!-- base avatar -->
+                <div class="tooltip" tabindex="0" th:if="*{base.itemName.hasId}">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card">
+                        <span class="t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.itemName.name}">아바타</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
+
+                        <span class="tooltip-line emblem-text" th:each="emblem: *{emblems}">
+                                <span class="tooltip-line emblem-text" th:attr="data-emblem-color=${emblem.color}"
+                                      th:text="${emblem.base.name}">
+                                </span>
+                        </span>
+
+                        <span class="tooltip-line" th:if="*{hasOptionAbility}">
+                                <span class="green-text">[선택 능력치]</span>
+                                <span class="tooltip-line muted" th:text="*{optionAbility}"></span>
+                        </span>
+                        <span class="tooltip-line" th:utext="*{detail.baseStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detail.detailStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detail.otherStatusHtml}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col name">
+                <div class="main rarity-text"
+                     th:attr="data-rarity=*{base.rarity}"
+                     th:text="*{base.itemName.name}">아바타 네임</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col name">
+                <span th:if="*{hasOptionAbility}">
+                    <span class="green-text">[선택 능력치]</span>
+                    <span class="tooltip-line muted" th:text="*{optionAbility}"></span>
+                </span>
+            </div>
+            <div class="divider"></div>
+
+            <div class="col emblem">
+                <div class="emblem-box">
+                    <span class="emblem-line"
+                          th:each="emblem : *{emblems}"
+                          th:object="${emblem}"
+                          th:attr="data-emblem-color=*{color}">
+                        <span class="emblem-name emblem-text" th:text="*{base.name}">엠블렘 이름</span>
+                        <span class="emblem-rarity rarity-text"
+                              th:attr="data-rarity=*{rarity}"
+                              th:text="|[*{rarity}]|">레어리티
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 아바타 -->
+
+
+    <!-- 크리쳐 -->
+    <div class="section-card creature-card dense"
+         th:if="*{character.buffCreature.base.hasId}"
+         th:object="${character.buffCreature}">
+        <div class="creature-grid">
+            <div class="col slot" th:if="*{base.hasId}"
+                 th:text="크리쳐">
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 1) 크리쳐/클론 아이콘 -->
+            <div class="col icons">
+                <!-- base creature -->
+                <div class="tooltip" tabindex="0" th:if="*{base.hasId}">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card">
+
+                        <span class="t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.itemName.name}">크리쳐</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col name">
+                <div class="main rarity-text"
+                     th:attr="data-rarity=*{base.rarity}"
+                     th:text="*{base.itemName.name}">크리쳐</div>
+            </div>
+            <div class="divider"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

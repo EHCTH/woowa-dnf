@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="creatureFragment"
+      lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Creature</title>
+</head>
+<body>
+<div class="page">
+    <div class="section-card creature-card dense"
+         th:if="${character.creature.base.hasId}"
+         th:object="${character.creature}">
+        <div class="creature-grid">
+
+            <!-- 1) 크리쳐/클론 아이콘 -->
+            <div class="col icons">
+                <!-- base creature -->
+                <div class="tooltip" tabindex="0">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card">
+
+                        <span class="t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.itemName.name}">크리쳐</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
+
+                        <span class="tooltip-line" th:if="*{creatureSkill.hasSkill}">
+                          <span class="t-meta" th:text="*{creatureSkill.skillName}"></span>
+                          <span class="t-sub" th:text="*{creatureSkill.skillDescription}"></span>
+                         </span>
+
+                        <span class="tooltip-line" th:if="*{creatureSkill.hasOverSkill}">
+                          <span class="t-meta" th:text="*{creatureSkill.overSkill}"></span>
+                          <span class="t-sub" th:text="*{creatureSkill.overSkillDescription}"></span>
+                        </span>
+
+                        <span class="tooltip-line" th:utext="*{detail.baseStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detail.detailStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detail.otherStatusHtml}"></span>
+                    </div>
+                </div>
+
+
+                <!-- clone creature -->
+                <div class="tooltip" tabindex="0" th:if="*{clone.hasId}">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{clone.id}|"
+                         th:alt="*{clone.name}">
+                    <div class="tooltip-card">
+                        <span class="tooltip-line t-title" th:text="*{clone.name}">클론 크리쳐</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- 2) 아티팩트 아이콘들 -->
+            <div class="col art-icons">
+                <div class="tooltip" tabindex="0"
+                     th:each="artifact : *{artifacts}" th:object="${artifact}">
+                    <img class="icon-48"
+                         th:if="*{base.hasId}"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card" th:attr="data-rarity=*{base.rarity}">
+                        <span class="tooltip-line t-rarity artifact-text"
+                              th:attr="data-artifact-color=*{detailType}"
+                              th:text="*{base.itemName.name}">아티팩트 네임</span>
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
+                        <span class="tooltip-line" th:utext="*{baseStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detailStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{otherStatusHtml}"></span>
+                    </div>
+                </div>
+            </div>
+
+<!--             3) 세로 구분선 -->
+            <div class="divider"></div>
+
+            <!-- 4) 이름/클론명 (중앙) -->
+            <div class="col name">
+                <div class="main rarity-text"
+                     th:attr="data-rarity=*{base.rarity}"
+                     th:text="*{base.itemName.name}">크리쳐</div>
+                <div th:text="*{clone.name}">클론크리쳐 </div>
+            </div>
+
+            <!-- 5) 세로 구분선 -->
+            <div class="divider"></div>
+
+            <!-- 6) 오른쪽 아티팩트 pill 리스트 -->
+            <div class="col artifact">
+                <div class="artifact-box">
+                  <span class="artifact-line"
+                        th:each="artifact : *{artifacts}"
+                        th:object="${artifact}"
+                        th:attr="data-artifact-color=*{detailType}">
+                        <span th:text="*{base.itemName.name}">아티팩트 이름</span>
+                        <span class="rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="|[*{base.rarity}]|">레어리티
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

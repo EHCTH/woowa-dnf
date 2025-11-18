@@ -1,0 +1,126 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/characters/top-bar.css}">
+    <link rel="stylesheet" th:href="@{/css/app.bundle.css}">
+    <script defer th:src="@{/js/tooltip.js}"></script>
+    <script defer th:src="@{/js/tab.js}"></script>
+    <title th:text="|${character.name}- 캐릭터 검색|">캐릭터 검색</title>
+</head>
+<body>
+    <header class="detail-topbar">
+        <div class="detail-brand">WOOWA-DNF</div>
+        <nav class="detail-nav">
+            <a href="/" aria-current="page">캐릭터 검색</a>
+        </nav>
+        <div class="detail-spacer"></div>
+    </header>
+
+    <div class="page">
+        <!-- 폼 -->
+        <form class="search-bar"
+              th:action="@{/search}"
+              th:object="${characterForm}"
+              method="get">
+            <p>
+                <label th:for="*{server}"></label>
+                <select th:field="*{server}">
+                    <option th:each="server : ${servers}"
+                            th:value="${server.english}"
+                            th:text="${server.korean}">
+                    </option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('server')}" th:errors="*{server}">오류</span>
+            </p>
+            <!---->
+            <p>
+                <label th:for="*{name}"></label>
+                <input type="text" th:field="*{name}" placeholder="이름을 입력해주세요">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">오류</span>
+            </p>
+            <p>
+                <button type="submit">검색</button>
+            </p>
+        </form>
+
+
+        <div class="character-page card" th:object="${character.base}">
+            <!-- 좌측: 캐릭터 이미지 -->
+            <div class="character-page img-wrap">
+                <img class="character-page char-img"
+                     th:src="*{image} ?: @{/image/characters/placeholder.png}"
+                     th:alt="*{characterName}">
+                <div class="character-page job-badge" th:text="*{jobGrowName}">眞 헌터</div>
+            </div>
+            <div class="character-page meta">
+                <div class="character-page name" th:text="*{characterName}">JAVA</div>
+                <div class="character-page fame">
+                    <img class="character-page fame-icon" th:src="@{/image/search/fame_icon.png}" alt="">
+                    <span class="character-page fame-value" th:text="*{fame}">78219</span>
+                </div>
+                <div class="character-page sub">
+                    <div>
+                        <div class="label">서버</div>
+                        <div class="value" th:text="*{serverName}">카인</div>
+                    </div>
+                    <div>
+                        <div class="character-page label">모험단</div>
+                        <a th:href="@{/search(server='adventure', name=*{adventureName})}">
+                            <div class="value" th:text="*{adventureName} ?: '-'">ORACLE</div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <div class="character-page label">길드</div>
+                        <a th:href="@{/search(server='guild', name=*{guildName})}">
+                            <div class="value" th:text="*{guildName} ?: '-'">아람</div>
+                        </a>
+                    </div>
+                </div>
+                <form th:action="@{/characters/{server}/{id}/refresh(server=*{serverId}, id=*{characterId})}"
+                      method="post">
+                    <button type="submit" class="refresh-btn">정보 갱신</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="tab-menu">
+                <button type="button" class="tab-button active"
+                        onclick="openTab(event, 'tab-equipment')">장비
+                </button>
+
+                <button type="button" class="tab-button"
+                        onclick="openTab(event, 'tab-creature')">크리쳐
+                </button>
+                <button type="button" class="tab-button"
+                        onclick="openTab(event, 'tab-avatar')">아바타
+                </button>
+                <button type="button" class="tab-button"
+                        onclick="openTab(event, 'tab-buff')">버프 강화
+                </button>
+                <button type="button" class="tab-button"
+                        onclick="openTab(event, 'tab-flag')">휘장
+                </button>
+            </div>
+
+            <!-- 초기 표시할 패널에 active -->
+            <div id="tab-equipment" class="tab-content active"
+                 th:insert="~{characters/equipment :: equipmentFragment}"></div>
+
+            <div id="tab-creature" class="tab-content"
+                 th:insert="~{characters/creature :: creatureFragment}"></div>
+
+            <div id="tab-avatar" class="tab-content"
+                 th:insert="~{characters/avatar :: avatarFragment}"></div>
+
+
+            <div id="tab-buff" class="tab-content"
+                 th:insert="~{characters/buff :: buffFragment}"></div>
+            <div id="tab-flag" class="tab-content"
+                 th:insert="~{characters/flag :: flagFragment}"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="equipmentFragment"
+      lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>장비</title>
+</head>
+<body>
+<div class="page" th:object="${character.equipment}">
+    <div class="set-card set-box"
+         th:if="*{setItemInfo != null and setItemInfo.hasId}"
+         th:attr="data-rarity=*{setItemInfo.rarity}">
+        <div class="cell divider set-line rarity-text" style="width:80px;">세트</div>
+        <div class="cell divider tooltip" tabindex="0">
+            <img class="icon-48"
+                 th:src="@{/image/item/equipment/set/{id}.png(id=*{setItemInfo.id})}"
+                 th:alt="*{setItemInfo.name}">
+            <div class="tooltip-card" th:if="*{setItemInfo.hasExplain}">
+                <span class="tooltip-line" th:utext="*{setItemInfo.itemExplainHtml}"></span>
+                <span class="tooltip-line green-text" th:utext="*{setItemInfo.buffExplainHtml}"></span>
+            </div>
+        </div>
+
+        <div class="cell divider" style="flex:1 1 auto;">
+            <span class="title" th:text="*{setItemInfo.name}">세트명</span>
+        </div>
+
+        <div class="cell" style="width:120px;">
+            <span class="rarity" th:text="*{setItemInfo.rarityDisplay}">레어리티</span>
+        </div>
+
+        <div class="cell" style="width:120px;">
+            <span class="points" th:text="*{setItemInfo.setPoint} + 'pt'">0pt</span>
+        </div>
+    </div>
+
+    <div class="section-card equipment-card dense"
+         th:each="equipment : *{equipmentItems}" th:object="${equipment}">
+        <div class="equipment-grid">
+            <!-- 1) equipment/enchant 아이콘 -->
+            <div class="col slot" th:text="*{base.slot}">무기</div>
+
+            <div class="divider"></div>
+
+            <div class="col icons">
+                <!-- base equipment -->
+                <div class="tooltip" tabindex="0" th:if="*{base.itemName.hasId}">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
+                         th:alt="*{base.itemName.name}">
+                    <div class="tooltip-card">
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.itemName.name}">찬란한 황금향의 축복 - 목걸이</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{base.rarity}">레어리티</span>
+
+                        <span class="tooltip-line t-fame"
+                              th:text="|모험가 명성: *{detail.fame}|">모험가 명성: 0</span>
+
+                        <span class="tooltip-line" th:utext="*{detail.baseStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detail.detailStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detail.otherStatusHtml}"></span>
+                        <span class="tooltip-line" th:utext="*{detail.itemExplainHtml}"></span>
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{base.rarity}"
+                              th:text="*{detail.itemFlavorText}"></span>
+
+                        <span class="tooltip-line green-text" th:utext="*{detail.buffExplainHtml}"></span>
+                    </div>
+                </div>
+
+                <div class="icon-wrap tooltip" tabindex="0" th:if="*{fusion.hasId}">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{fusion.id}|"
+                         alt="upgrade">
+                    <div class="tooltip-card" th:attr="data-rarity=*{fusion.rarity}">
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{fusion.rarity}"
+                              th:text="*{fusion.name}">테아나 : 끝나지 않는 도전</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{fusion.rarity}"
+                              th:text="*{fusion.rarity}">레어리티</span>
+
+                        <span class="tooltip-line t-fame"
+                              data-rarity="언커먼"
+                              th:text="|모험가 명성: *{fusionDetail.fame}|">모험가 명성: 0</span>
+
+                        <span class="tooltip-line" th:utext="*{fusionDetail.itemExplainHtml}"></span>
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{fusion.rarity}"
+                              th:text="*{fusionDetail.itemFlavorText}"></span>
+                        <span class="tooltip-line green-text"
+                              th:utext="*{fusionDetail.buffExplainHtml}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col reinforce"
+                 th:classappend="*{reinforce.reinforceClassType}">
+                <span th:text="|+*{reinforce.value}|"></span>
+                <span class="subline"
+                      th:if="*{reinforce.hasUpgrade}"
+                      th:text="*{reinforce.name}"></span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="col name">
+                <div class="main rarity-text"
+                     th:attr="data-rarity=*{base.rarity}"
+                     th:text="|*{tune.display} *{base.itemName.name}"|>찬란한 황금향의 축복 - 목걸이</div>
+                <div th:text="*{fusion.name}">테아나 : 끝나지 않는 도전</div>
+
+                <span class="sub tune-text"
+                      th:if="*{tune.hasName}"
+                      th:attr="data-tune-color=*{tune.name}"
+                      th:text="*{tune.name}">새겨진 해일의 기억
+                </span>
+                <span class="sub green-text"
+                      th:if="*{tune.hasLevel}"
+                      th:text="|(*{tune.level} 조율)|">0 조율
+                </span>
+            </div>
+
+            <div class="divider"></div>
+
+
+            <div class="col enchant" th:if="*{hasEnchant}">
+                <ul class="enchant-line">
+                    <li th:each="en : *{enchant}">
+                        <span th:text="${en.name}">속성강화</span>
+                        <span>:</span>
+                        <span th:text="${en.value}">15</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
