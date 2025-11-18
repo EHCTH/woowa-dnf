@@ -2,7 +2,6 @@ package xyz.woowa.dnf.character.application.query.dto.equipment.flag;
 
 import lombok.Builder;
 import lombok.Getter;
-import xyz.woowa.dnf.character.application.query.dto.common.NameValue;
 import xyz.woowa.dnf.character.application.query.dto.common.ProfileDto;
 import xyz.woowa.dnf.character.application.query.dto.common.ReinforceDto;
 
