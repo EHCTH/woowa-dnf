@@ -101,7 +101,7 @@ public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
                 .itemExplainHtml(htmlMapper.itemExplainHtml(fusionItemDetail.itemExplain()))
                 .build();
     }
-    public ItemProfileDto toItemProfile(ItemProfile itemProfile) {
+    private ItemProfileDto toItemProfile(ItemProfile itemProfile) {
         ItemName itemName = itemProfile.itemName();
         ItemName itemTypeDetail = itemProfile.itemTypeDetail();
         ItemValue nameValue = commonValueDtoMapper.toItemValue(itemName.id(), itemName.name());
