@@ -12,6 +12,7 @@ import xyz.woowa.dnf.character.domain.Character;
 import xyz.woowa.dnf.character.domain.base.Base;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -36,14 +37,16 @@ public class CharacterSearchFacade {
     }
 
     public List<BaseDto> guildSearchAll(String guildName) {
-        List<Character> allByGuildName = repository.findAllByGuildName(Strings.toRootUpperCase(guildName));
+        String normalizeGuildName = normalizeName(guildName);
+        List<Character> allByGuildName = repository.findAllByGuildName(normalizeGuildName);
         return allByGuildName.stream()
                 .map(this::baseDtoHelper)
                 .sorted(BaseDto::descByFame)
                 .toList();
     }
     public List<BaseDto> adventureSearchAll(String adventureName) {
-        List<Character> allByAdventureName = repository.findAllByAdventureName(Strings.toRootUpperCase(adventureName));
+        String normalizeAdventureName = normalizeName(adventureName);
+        List<Character> allByAdventureName = repository.findAllByAdventureName(normalizeAdventureName);
         return allByAdventureName.stream()
                 .map(this::baseDtoHelper)
                 .sorted(BaseDto::descByFame)
@@ -58,4 +61,9 @@ public class CharacterSearchFacade {
     private GetCharacterDetailUseCase.Command toCommand(GetCharacterIdUseCase.Result result) {
         return new GetCharacterDetailUseCase.Command(result.serverId(), result.id());
     }
+
+    private String normalizeName(String name) {
+        return name.toUpperCase(Locale.ROOT);
+    }
+
 }

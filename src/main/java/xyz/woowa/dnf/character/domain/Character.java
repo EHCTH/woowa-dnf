@@ -28,23 +28,29 @@ public class Character {
     public String name() {
         return base.characterName();
     }
+
     public String server() {
         return base.serverName();
     }
+
     public String guildName() {
         return base.guildName();
     }
+
     public String adventureName() {
         return base.adventureName();
     }
+
     public boolean equalsToBase(Base other) {
         return this.base.equals(other);
     }
+
     public boolean equalsToGuildName(String guildName) {
-        return Strings.toRootUpperCase(guildName()).equals(guildName);
+        return guildName().equalsIgnoreCase(guildName);
     }
+
     public boolean equalsToAdventureName(String adventureName) {
-        return Strings.toRootUpperCase(adventureName()).equals(adventureName);
+        return adventureName().equalsIgnoreCase(adventureName);
     }
 
 }
