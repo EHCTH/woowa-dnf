@@ -15,14 +15,13 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class ExternalCharacterAdapter implements ExternalCharacterPort {
-    private static final String SEARCH_PATH = "/df/servers/{serverId}/characters";
     private final NeopleClient neopleClient;
 
     @Override
     public List<Row> search(Server server, Name name) {
         try {
             SearchResponse resp = neopleClient.get(
-                    SEARCH_PATH,
+                    NeoplePaths.SEARCH,
                     SearchResponse.class,
                     Map.of("characterName", name.value(),
                             "limit", 50,
