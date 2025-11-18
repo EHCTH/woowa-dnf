@@ -18,7 +18,6 @@ import xyz.woowa.dnf.common.aop.CharacterLog;
 @Slf4j
 @RequiredArgsConstructor
 public class CharacterRefreshFacade {
-
     private final GetCharacterDetailUseCase query;
     private final CharacterAssembler assembler;
     private final SaveCharacterUseCase saver;
