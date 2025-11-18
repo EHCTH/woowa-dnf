@@ -39,7 +39,6 @@ public class CharacterRefreshFacade {
     @CharacterLog("캐릭터 강제 갱신")
     public CharacterDto refresh(String serverId, String characterId) {
         EntityId entityId = new EntityId(characterId, Server.fromEnglish(serverId));
-        log.info("캐릭터 정보 갱신 시작 = {}",entityId);
         var command = command(serverId, characterId);
         Base base = query.get(command);
         return refresh(entityId, command, base);
