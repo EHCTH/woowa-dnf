@@ -22,7 +22,6 @@ public class BoundedAsync {
         if (keys == null || keys.isEmpty()) {
             return Map.of();
         }
-
         Semaphore semaphore = createSemaphore();
         Map<K, CompletableFuture<V>> futures = submit(keys, task, semaphore);
         return collectResults(futures);
@@ -32,19 +31,17 @@ public class BoundedAsync {
         return new Semaphore(maxConcurrency, fair);
     }
 
-    private <K, V> Map<K, CompletableFuture<V>> submit(Collection<K> keys, Function<K, V> task, Semaphore semaphore
-    ) {
+    private <K, V> Map<K, CompletableFuture<V>> submit(Collection<K> keys, Function<K, V> task, Semaphore semaphore) {
         return keys.stream()
                 .collect(Collectors.toMap(
                         Function.identity(),
-                        k -> submit(k, task, semaphore),
+                        key -> submit(key, task, semaphore),
                         (a, b) -> a,
                         LinkedHashMap::new
                 ));
     }
 
-    private <K, V> CompletableFuture<V> submit(K key, Function<K, V> task, Semaphore semaphore
-    ) {
+    private <K, V> CompletableFuture<V> submit(K key, Function<K, V> task, Semaphore semaphore) {
         return CompletableFuture
                 .supplyAsync(() -> runWithPermit(semaphore, () -> task.apply(key)), executor)
                 .orTimeout(timeout.toSeconds(), TimeUnit.SECONDS)
@@ -55,20 +52,22 @@ public class BoundedAsync {
         try {
             semaphore.acquire();
             return supplier.get();
-        } catch (InterruptedException ie) {
+        }
+        catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
             return null;
-        } finally {
+        }
+        finally {
             semaphore.release();
         }
     }
 
     private <K, V> Map<K, V> collectResults(Map<K, CompletableFuture<V>> futures) {
         Map<K, V> out = new LinkedHashMap<>(futures.size());
-        futures.forEach((k, f) -> {
-            V v = f.join();
-            if (v != null) {
-                out.put(k, v);
+        futures.forEach((key, f) -> {
+            V join = f.join();
+            if (join != null) {
+                out.put(key, join);
             }
         });
         return out;
