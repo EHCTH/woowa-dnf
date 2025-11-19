@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class CharacterLogAspect {
     private static final int SEVER_ID_INDEX = 0;
     private static final int CHARACTER_ID_INDEX = 1;
+
     @Around("@annotation(characterLog)")
     public Object logCharacter(ProceedingJoinPoint joinPoint,
                                CharacterLog characterLog) throws Throwable {
