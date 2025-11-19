@@ -22,5 +22,6 @@ public class ApiExceptionHandler {
         return new ErrorResponse("INVALID_ARGUMENT", msg);
     }
 
-    public record ErrorResponse(String code, String message) {}
+    public record ErrorResponse(String code, String message) {
+    }
 }
