@@ -81,7 +81,7 @@ class EnchantTest {
 
         assertThat(result)
                 .extracting(Status::name)
-                .containsExactly("스탯", "공격력", "모든 속성 강화", "크리티컬 히트");
+                .containsExactly("모든 속성 강화", "스탯", "공격력", "크리티컬 히트");
     }
 
     private Status s(String name, String value) {
