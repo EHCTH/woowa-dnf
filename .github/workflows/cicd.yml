@@ -1,11 +1,11 @@
-name: CI - Build & Push Docker
+name: CI/CD - woowa-dnf
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,11 +18,8 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle (bootJar)
-        run: ./gradlew clean bootJar
+      - name: Test & build Spring Boot jar
+        run: ./gradlew clean test bootJar
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -30,10 +27,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/woowa-dnf:latest
+      - name: Build & push Docker image
+        run: |
+          IMAGE=ehctle/woowa-dnf:latest
+          docker build -t $IMAGE .
+          docker push $IMAGE
 
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            chmod +x ~/deploy-woowa-dnf.sh
+            ~/deploy-woowa-dnf.sh
