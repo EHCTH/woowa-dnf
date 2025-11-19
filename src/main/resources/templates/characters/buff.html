@@ -33,13 +33,11 @@
     <div class="section-card buff-equipment-card dense"
          th:each="equipment : ${character.buffEquipments}" th:object="${equipment}">
         <div class="buff-equipment-grid">
-            <!-- 1) equipment/enchant 아이콘 -->
             <div class="col slot" th:text="*{base.slot}">무기</div>
 
             <div class="divider"></div>
 
             <div class="col icons">
-                <!-- base equipment -->
                 <div class="tooltip" tabindex="0" th:if="*{base.itemName.hasId}">
                     <img class="icon-48"
                          th:src="|https://img-api.neople.co.kr/df/items/*{base.itemName.id}|"
