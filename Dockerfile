@@ -1,0 +1,10 @@
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY build/libs/*.jar app.jar
+
+ENV JAVA_OPTS=""
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dspring.profiles.active=mysql -jar /app/app.jar"]
+
