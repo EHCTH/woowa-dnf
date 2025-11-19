@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS character_snapshot;
-
-CREATE TABLE character_snapshot (
+CREATE TABLE IF NOT EXISTS character_snapshot (
     server_id           VARCHAR(20)  NOT NULL,
     character_id        VARCHAR(50)  NOT NULL,
     level               INT          NOT NULL,
