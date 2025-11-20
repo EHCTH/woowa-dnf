@@ -17,7 +17,6 @@
     </header>
 
     <div class="search-page">
-        <!-- 상단 검색바 (GET) -->
         <form class="search-bar"
               th:action="@{/search}"
               th:object="${characterForm}"
@@ -44,7 +43,6 @@
             </p>
         </form>
 
-        <!-- 카드 그리드 -->
         <div class="search-page char-list">
             <div class="char-card" th:each="character : ${characters}" th:object="${character}">
                 <a th:href="@{/characters/{server}/{id}(server=*{serverId}, id=*{characterId})}">

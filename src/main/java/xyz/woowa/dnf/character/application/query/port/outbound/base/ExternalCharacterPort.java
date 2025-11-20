@@ -31,6 +31,9 @@ public interface ExternalCharacterPort {
     record Row(String serverId, String characterId) {
     }
     record SearchResponse(List<Row> rows) {
+        public boolean isEmpty() {
+            return rows.isEmpty();
+        }
     }
 
 }

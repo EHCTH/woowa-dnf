@@ -37,9 +37,6 @@ public enum Server {
     }
 
     public static Server fromEnglish(String english) {
-        if (english == null) {
-            throw new DomainException("server.required");
-        } ;
         Server server = BY_ENGLISH.get(english.toLowerCase(Locale.ROOT));
         if (server == null) {
             throw new DomainException("server.not-found", english);
