@@ -1,7 +1,6 @@
 package xyz.woowa.dnf.character.application.query.service;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 import xyz.woowa.dnf.character.application.command.port.outbound.CharacterRepository;
 import xyz.woowa.dnf.character.application.query.assembler.base.BaseDtoMapper;
@@ -23,18 +22,21 @@ public class CharacterSearchFacade {
     private final BaseDtoMapper baseDtoMapper;
 
     public List<BaseDto> searchAll(String server, String name) {
-        var refs = idQuery.getCharactersId(new GetCharacterIdUseCase.CharacterCommand(server, name));
+        var refs = idQuery.getCharactersId(toCommand(server, name));
         if (refs.isEmpty()) {
             return List.of();
         }
-        var cmds = refs.stream()
+        var commands = refs.stream()
                 .map(this::toCommand)
                 .toList();
-        return detailQuery.getAll(cmds).stream()
+
+        return detailQuery.getAll(commands)
+                .stream()
                 .map(baseDtoMapper::toDto)
                 .sorted(BaseDto::descByFame)
                 .toList();
     }
+
 
     public List<BaseDto> guildSearchAll(String guildName) {
         String normalizeGuildName = normalizeName(guildName);
@@ -44,6 +46,7 @@ public class CharacterSearchFacade {
                 .sorted(BaseDto::descByFame)
                 .toList();
     }
+
     public List<BaseDto> adventureSearchAll(String adventureName) {
         String normalizeAdventureName = normalizeName(adventureName);
         List<Character> allByAdventureName = repository.findAllByAdventureName(normalizeAdventureName);
@@ -60,6 +63,10 @@ public class CharacterSearchFacade {
 
     private GetCharacterDetailUseCase.Command toCommand(GetCharacterIdUseCase.Result result) {
         return new GetCharacterDetailUseCase.Command(result.serverId(), result.id());
+    }
+
+    private GetCharacterIdUseCase.CharacterCommand toCommand(String server, String name) {
+        return new GetCharacterIdUseCase.CharacterCommand(server, name);
     }
 
     private String normalizeName(String name) {
