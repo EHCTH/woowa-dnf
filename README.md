@@ -55,6 +55,7 @@
 - AWS EC2 (Ubuntu, 배포 서버)
 - AWS Route 53 (도메인 연결)
 - GitHub Actions (CI/CD 파이프라인 예정/구현)
+- Nginx (EC2 호스트)
 
 ### Build & 기타
 - Gradle
