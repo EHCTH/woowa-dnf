@@ -46,14 +46,15 @@ public class SearchController {
 
     @GetMapping(params = {"server", "name"})
     public String search(@ModelAttribute("characterForm") @Valid CharacterForm characterForm,
-                         RedirectAttributes redirectAttributes,
                          BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes,
                          Model model) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addAttribute("server", characterForm.server());
-            redirectAttributes.addAttribute("name", characterForm.name());
+            redirectAttributes.addFlashAttribute("characterForm", characterForm);
+            redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "characterForm", bindingResult);
             return "redirect:/";
         }
+
         String server = characterForm.server();
         String name = characterForm.name();
 
@@ -64,6 +65,7 @@ public class SearchController {
             redirectAttributes.addAttribute("name", name);
             return "redirect:/";
         }
+
         model.addAttribute("characters", characters);
         return "search/detail";
     }
