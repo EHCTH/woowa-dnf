@@ -40,5 +40,5 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            chmod +x ~/deploy-woowa-dnf.sh
-            ~/deploy-woowa-dnf.sh
+            chmod +x ~/deploy-woowa-dnf-compose.sh
+            ~/deploy-woowa-dnf-compose.sh
