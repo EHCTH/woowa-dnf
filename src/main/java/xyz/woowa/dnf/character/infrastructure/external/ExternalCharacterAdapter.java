@@ -20,15 +20,8 @@ public class ExternalCharacterAdapter implements ExternalCharacterPort {
     @Override
     public List<Row> search(Server server, Name name) {
         try {
-            SearchResponse resp = neopleClient.get(
-                    NeoplePaths.SEARCH,
-                    SearchResponse.class,
-                    Map.of("characterName", name.value(),
-                            "limit", 50,
-                            "wordType", WordType.full.name()
-                    ),
-                    server.getEnglish()
-            );
+            WordType wordType = WordType.findByNameLength(name.value());
+            SearchResponse resp = searchResponse(server, name, wordType);
             if (resp == null || resp.rows() == null || resp.rows().isEmpty()) {
                 throw new DomainException("character.not-found", name.value());
             }
@@ -37,6 +30,18 @@ public class ExternalCharacterAdapter implements ExternalCharacterPort {
         } catch (RestClientException e) {
             throw new DomainException("external.failed", e.getMessage());
         }
+    }
+
+    private SearchResponse searchResponse(Server server, Name name, WordType wordType) {
+        return neopleClient.get(
+                NeoplePaths.SEARCH,
+                SearchResponse.class,
+                Map.of("characterName", name.value(),
+                        "limit", 50,
+                        "wordType", wordType.getCode()
+                ),
+                server.getEnglish()
+        );
     }
 
 
