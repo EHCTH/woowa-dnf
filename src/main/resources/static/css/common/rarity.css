@@ -6,6 +6,7 @@
 [data-rarity="언커먼"]    { --rarity-color:skyblue; }
 [data-rarity="커먼"]      { --rarity-color:gray; }
 [data-rarity="신화"]      { --rarity-color:pink; }
+[data-rarity="크로니클"]  { --rarity-color:#ff00ff; }
 [data-rarity="언노운"]    { --rarity-color:gray; }
 
 [data-emblem-color="노란빛"]    { --emblem-color:#daa520; }
