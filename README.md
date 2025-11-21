@@ -1,7 +1,7 @@
 # WOOWA-DNF
 
-던전앤파이터 캐릭터 정보를 조회하고  장비/아바타/버프 정보를 한눈에 볼 수 있는 웹 서비스입니다.  
-네오플 오픈 API를 이용해 캐릭터 정보를 조회합니다 
+던전앤파이터 캐릭터 정보를 조회하고 장비/아바타/버프 정보를 한눈에 볼 수 있는 웹 서비스입니다.  
+네오플 오픈 API를 이용해 캐릭터 정보를 조회합니다
 아직 미완성이지만 한 번 안해본 걸 시도해보기 위해서 DB연결과 CI/CD까지 해보려고 진행하였습니다
 왜 이 개발을 시작하였나면 던담이라는 사이트는 데미지 * 스킬 기준 자체가 부합하지 않다고 생각하여
 진행하게 되었습니다,
@@ -37,32 +37,37 @@
 ## 기술 스택
 
 ### Backend
+
 - Java 21
 - Spring Boot 3.5.7
 - Spring MVC, Spring Validation
 - Spring AOP (캐릭터 조회/갱신 로그)
 
 ### View
+
 - Thymeleaf
 - HTML/CSS
 
 ### Database
+
 - 메모리 Map 기반 Repository (개발용)
 - MySQL 8.0.31 + JPA (운영용)
 
 ### Infra & DevOps
+
 - Docker (애플리케이션 / MySQL 컨테이너)
 - AWS EC2 (Ubuntu, 배포 서버)
 - AWS Route 53 (도메인 연결)
-- GitHub Actions (CI/CD 파이프라인 예정/구현)
+- GitHub Actions (CI/CD 파이프라인 구현)
 - Nginx (EC2 호스트)
 
 ### Build & 기타
+
 - Gradle
 - Lombok
 
-
 ## 테스트 작성
+
 - [x] 도메인 로직 테스트 작성
 - [x] 리포지토리 테스트 작성
 - [x] 매퍼 테스트 작성
