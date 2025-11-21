@@ -4,7 +4,7 @@ import lombok.Builder;
 
 import java.time.Duration;
 import java.util.Collection;
-import java.util.LinkedHashMap;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.function.Function;
@@ -20,7 +20,7 @@ public class BoundedAsync {
 
     public <K, V> Map<K, V> toMap(Collection<K> keys, Function<K, V> task) {
         if (keys == null || keys.isEmpty()) {
-            return Map.of();
+            return Collections.emptyMap();
         }
         Semaphore semaphore = createSemaphore();
         Map<K, CompletableFuture<V>> futures = submit(keys, task, semaphore);
@@ -33,17 +33,11 @@ public class BoundedAsync {
 
     private <K, V> Map<K, CompletableFuture<V>> submit(Collection<K> keys, Function<K, V> task, Semaphore semaphore) {
         return keys.stream()
-                .collect(Collectors.toMap(
-                        Function.identity(),
-                        key -> submit(key, task, semaphore),
-                        (a, b) -> a,
-                        LinkedHashMap::new
-                ));
+                .collect(Collectors.toMap(Function.identity(), key -> submit(key, task, semaphore)));
     }
 
     private <K, V> CompletableFuture<V> submit(K key, Function<K, V> task, Semaphore semaphore) {
-        return CompletableFuture
-                .supplyAsync(() -> runWithPermit(semaphore, () -> task.apply(key)), executor)
+        return CompletableFuture.supplyAsync(() -> runWithPermit(semaphore, () -> task.apply(key)), executor)
                 .orTimeout(timeout.toSeconds(), TimeUnit.SECONDS)
                 .exceptionally(ex -> null);
     }
@@ -52,24 +46,19 @@ public class BoundedAsync {
         try {
             semaphore.acquire();
             return supplier.get();
-        }
-        catch (InterruptedException ie) {
+        } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
             return null;
-        }
-        finally {
+        } finally {
             semaphore.release();
         }
     }
 
     private <K, V> Map<K, V> collectResults(Map<K, CompletableFuture<V>> futures) {
-        Map<K, V> out = new LinkedHashMap<>(futures.size());
-        futures.forEach((key, f) -> {
-            V join = f.join();
-            if (join != null) {
-                out.put(key, join);
-            }
-        });
-        return out;
+        return futures.entrySet()
+                .stream()
+                .map(entry -> Map.entry(entry.getKey(), entry.getValue().join()))
+                .filter(entry -> entry.getValue() != null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
