@@ -5,8 +5,15 @@ import lombok.RequiredArgsConstructor;
 import java.util.*;
 
 public record Enchant(List<Status> status) {
+    public List<Status> getStatus() {
+        if (status == null || status.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return StatusType.computeStatus(status);
+    }
+
     @RequiredArgsConstructor
-    enum StatusType {
+    private enum StatusType {
         BASE(List.of("힘", "지능", "체력", "정신력")) {
             @Override
             public Status convert(Status status) {
@@ -49,13 +56,6 @@ public record Enchant(List<Status> status) {
                     .orElse(OTHER);
         }
 
-    }
-
-    public List<Status> getStatus() {
-        if (status == null || status.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return StatusType.computeStatus(status);
     }
 }
 
