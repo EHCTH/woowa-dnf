@@ -1,0 +1,123 @@
+.chat-panel {
+    padding: 14px 16px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+.chat-header {
+    margin-bottom: 10px;
+}
+
+.chat-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.chat-nickname-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.chat-label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.chat-input-nickname {
+    flex: 0 0 180px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 13px;
+}
+
+.chat-input-nickname:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+}
+
+.chat-box {
+    height: 260px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    padding: 10px 12px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+#chat-box > div {
+    margin-bottom: 4px;
+}
+
+.chat-input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.chat-input-message {
+    flex: 1;
+    min-height: 44px;
+    max-height: 110px;
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.chat-input-message:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+}
+
+.chat-send-button {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    background-color: #7dd3fc;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.chat-send-button:hover {
+    background-color: #2563eb;
+}
+
+.chat-send-button:active {
+    transform: translateY(1px);
+}
+
+.chat-line {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.chat-nick {
+    font-weight: 600;
+    margin-right: 6px;
+    white-space: nowrap;
+}
+
+.chat-text {
+    white-space: pre-line;
+}

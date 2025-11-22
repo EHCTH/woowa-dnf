@@ -1,23 +1,28 @@
 <div xmlns:th="http://www.thymeleaf.org"
-     th:fragment="chatFragment(serverId, characterId)">
+     th:fragment="chatFragment(serverId, characterId)"
+     class="chat-panel">
 
     <input type="hidden" id="chat-server" th:value="${serverId}">
     <input type="hidden" id="chat-characterId" th:value="${characterId}">
 
-    <h2>실시간 채팅방</h2>
-
-    <div>
-        닉네임: <input type="text" id="writer" placeholder="닉네임">
+    <div class="chat-nickname-row">
+        <label for="writer" class="chat-label">닉네임</label>
+        <input type="text"
+               id="writer"
+               th:placeholder="#{chat.place.holder.name}"
+               class="chat-input-nickname">
     </div>
 
-    <div id="chat-box"
-         style="border:1px solid #ccc;height:300px;overflow-y:scroll;margin:8px 0;"></div>
+    <div id="chat-box" class="chat-box"></div>
 
-    <div>
+    <div class="chat-input-row">
         <textarea id="message"
-                  placeholder="메시지를 입력하세요"
+                  th:placeholder="#{chat.place.holder.content}"
                   rows="2"
-                  style="width: 100%; resize: none;"></textarea>
-        <button type="button" onclick="sendMessage()">보내기</button>
+                  class="chat-input-message"></textarea>
+        <button type="button"
+                class="chat-send-button"
+                onclick="sendMessage()"
+                th:text="#{chat.button}">보내기</button>
     </div>
 </div>
