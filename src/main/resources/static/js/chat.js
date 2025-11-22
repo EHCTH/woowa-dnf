@@ -30,7 +30,19 @@ function connect() {
 function addMessage(writer, content) {
     const box = document.getElementById('chat-box');
     const line = document.createElement('div');
-    line.textContent = writer + ' : ' + content;
+    line.classList.add('chat-line');
+
+    const nick = document.createElement('span');
+    nick.classList.add('chat-nick');
+    nick.textContent = writer + ' :';
+
+    const body = document.createElement('span');
+    body.classList.add('chat-text');
+    body.textContent = ' ' + content;
+
+    line.appendChild(nick);
+    line.appendChild(body);
+
     box.appendChild(line);
     box.scrollTop = box.scrollHeight;
 }
