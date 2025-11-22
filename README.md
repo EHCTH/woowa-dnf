@@ -41,9 +41,10 @@
     - **악용 방지**: 욕설, 도배, 특정 유저에 대한 `마녀사냥` 등 악용 가능성에 대한 기능은 추후 보완 예정
     - 운영자 전용 삭제 API:
       ```bash
-      # 예시: 로컬 개발 환경
       CHAT_ADMIN_TOKEN=local-token
-  
+      ```
+      
+      ```bash
       curl -X DELETE \
         -H "X-CHAT_ADMIN-TOKEN: ${CHAT_ADMIN_TOKEN}" \
         "http://localhost:8080/internal/admin/chat/rooms/{serverId}/{characterId}"
