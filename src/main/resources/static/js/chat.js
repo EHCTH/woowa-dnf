@@ -1,22 +1,29 @@
 let stompClient = null;
+let roomServer = null;
+let roomCharacterId = null;
 
 function connect() {
+    roomServer = document.getElementById('chat-server').value;
+    roomCharacterId = document.getElementById('chat-characterId').value;
+    const roomId = `${roomServer}:${roomCharacterId}`;
+
     const socket = new SockJS('/ws-chat');
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function () {
-        console.log('Connected');
+        console.log('Connected to room:', roomServer, roomCharacterId);
+        fetch(`/api/chat/messages?roomId=${encodeURIComponent(roomId)}&size=50`)
+            .then(res => res.json())
+            .then(messages => {
+                 messages.reverse().forEach(m => addMessage(m.writer, m.content));
+                  }
+            );
 
-        fetch('/api/chat/messages')
-                    .then(res => res.json())
-                    .then(messages => {
-                        messages.forEach(m => addMessage(m.writer, m.content));
-                    });
-
-        stompClient.subscribe('/topic/chat', function (message) {
+        stompClient.subscribe(`/topic/chat/${roomServer}/${roomCharacterId}`, function (message) {
             const body = JSON.parse(message.body);
-            addMessage(body.writer, body.content);
-        });
+                addMessage(body.writer, body.content);
+            }
+        );
     });
 }
 
@@ -31,9 +38,11 @@ function addMessage(writer, content) {
 function sendMessage() {
     const writer = document.getElementById('writer').value || '익명';
     const content = document.getElementById('message').value;
-    if (!content.trim()) return;
+    if (!content.trim()) {
+        return;
+    }
+    stompClient.send( `/app/chat/${roomServer}/${roomCharacterId}`, {},  JSON.stringify({writer, content}));
 
-    stompClient.send('/app/chat.send', {}, JSON.stringify({writer, content}));
     document.getElementById('message').value = '';
 }
 
