@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import xyz.woowa.dnf.chat.application.assembler.ChatDtoMapper;
+import xyz.woowa.dnf.chat.application.command.port.inbound.ClearRoomChatUseCase;
 import xyz.woowa.dnf.chat.application.command.port.inbound.SendChatMessageUseCase;
 import xyz.woowa.dnf.chat.application.command.port.inbound.dto.ChatMessageDto;
 import xyz.woowa.dnf.chat.application.port.outbound.ChatMessageStorePort;
@@ -21,6 +22,7 @@ class ChatMessageServiceTest {
     private ChatMessageStorePort memoryStorePort;
     private SendChatMessageUseCase chatMessageService;
     private GetChatMessageUseCase getChatMessageUseCase;
+    private ClearRoomChatUseCase clearRoomChatUseCase;
 
     @BeforeEach
     void init() {
@@ -28,6 +30,7 @@ class ChatMessageServiceTest {
         memoryStorePort = new MemoryChatMessageAdapter();
         chatMessageService = new ChatMessageService(memoryStorePort, mapper);
         getChatMessageUseCase = new GetChatMessageService(memoryStorePort, mapper);
+        clearRoomChatUseCase= new ClearRoomChatService(memoryStorePort);
     }
 
     @Test
@@ -55,6 +58,31 @@ class ChatMessageServiceTest {
 
         assertThat(recent).hasSize(3);
         assertThat(recent.getFirst()).isEqualTo(send);
+    }
+
+    @Test
+    @DisplayName("삭제 테스트")
+    void 삭제_테스트() {
+        // give
+        SendChatMessageUseCase.Command command1 = new SendChatMessageUseCase.Command(
+                "1", "writer1", "content1");
+        SendChatMessageUseCase.Command command2 = new SendChatMessageUseCase.Command(
+                "1", "writer2", "content2");
+        SendChatMessageUseCase.Command command3 = new SendChatMessageUseCase.Command(
+                "1", "writer3", "content3");
+
+
+        // when
+        chatMessageService.send(command1);
+        chatMessageService.send(command2);
+        chatMessageService.send(command3);
+
+        clearRoomChatUseCase.clear(new ClearRoomChatUseCase.Command("1"));
+
+        List<ChatMessageDto> recent = getChatMessageUseCase.getRecent("1", 10);
+
+        // then
+        assertThat(recent).hasSize(0);
     }
 
 
