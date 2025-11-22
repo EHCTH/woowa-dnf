@@ -46,4 +46,18 @@ function sendMessage() {
     document.getElementById('message').value = '';
 }
 
-connect();
+document.addEventListener('DOMContentLoaded', function () {
+    connect();
+
+    const input = document.getElementById('message');
+    if (!input) {
+        return;
+    }
+
+    input.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+});

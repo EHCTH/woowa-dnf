@@ -14,7 +14,10 @@
          style="border:1px solid #ccc;height:300px;overflow-y:scroll;margin:8px 0;"></div>
 
     <div>
-        <input type="text" id="message" placeholder="메시지를 입력하세요" style="width:80%;">
+        <textarea id="message"
+                  placeholder="메시지를 입력하세요"
+                  rows="2"
+                  style="width: 100%; resize: none;"></textarea>
         <button type="button" onclick="sendMessage()">보내기</button>
     </div>
 </div>
