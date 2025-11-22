@@ -1,11 +1,9 @@
 package xyz.woowa.dnf.character.application.query.assembler;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import xyz.woowa.dnf.character.application.query.dto.common.NameValue;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -31,32 +29,25 @@ public class HtmlMapper {
     }
 
     public String baseStatusHtml(List<NameValue> itemStatus) {
-        return joinByIncludeCategory(itemStatus, StatusCategory.BASE);
+        return joinStatus(itemStatus, byCategories(StatusCategory.BASE));
     }
 
     public String detailStatusHtml(List<NameValue> itemStatus) {
-        return joinByIncludeCategory(itemStatus, StatusCategory.DETAIL);
+        return joinStatus(itemStatus, byCategories(StatusCategory.DETAIL));
     }
 
     public String otherStatusHtml(List<NameValue> itemStatus) {
-        return joinByExcludedCategories(itemStatus, StatusCategory.BASE, StatusCategory.DETAIL, StatusCategory.EXCLUDE);
+        return joinStatus(itemStatus, byCategories(StatusCategory.excludeCategories()).negate());
     }
 
-    private String joinByExcludedCategories(List<NameValue> itemStatus, StatusCategory... excludedCategories) {
+    private String joinStatus(List<NameValue> itemStatus, Predicate<NameValue> predicate) {
         return itemStatus.stream()
-                .filter(filterHandler(excludedCategories).negate())
+                .filter(predicate)
                 .map(this::formatStatus)
                 .collect(Collectors.joining(NEXT_LINE_HTML));
     }
 
-    private String joinByIncludeCategory(List<NameValue> itemStatus, StatusCategory... categories) {
-        return itemStatus.stream()
-                .filter(filterHandler(categories))
-                .map(this::formatStatus)
-                .collect(Collectors.joining(NEXT_LINE_HTML));
-    }
-
-    private Predicate<NameValue> filterHandler(StatusCategory... categories) {
+    private Predicate<NameValue> byCategories(StatusCategory... categories) {
         return stat -> Arrays.stream(categories)
                 .anyMatch(statusCategory -> statusCategory.contains(stat.name()));
 
@@ -70,16 +61,24 @@ public class HtmlMapper {
         return text.replace(NEXT_LINE, NEXT_LINE_HTML);
     }
 
-    @RequiredArgsConstructor
     private enum StatusCategory {
-        BASE(List.of("힘", "지능", "체력", "정신력")),
-        DETAIL(List.of("물리 공격력", "마법 공격력", "독립 공격력", "물리 방어력", "마법 방어력")),
-        EXCLUDE(List.of("내구도", "모험가 명성"));
+        BASE("힘", "지능", "체력", "정신력"),
+        DETAIL("공격력", "방어력", "버프력"),
+        EXCLUDE("내구도", "모험가 명성", "인벤토리");
 
+        private static final StatusCategory[] EXCLUDED_FOR_OTHER = new StatusCategory[]{BASE, DETAIL, EXCLUDE};
         private final List<String> names;
 
-        public boolean contains(String name) {
-            return names.contains(name);
+        StatusCategory(String... args) {
+            this.names = List.of(args);
+        }
+
+        public static StatusCategory[] excludeCategories() {
+            return EXCLUDED_FOR_OTHER;
+        }
+
+        public boolean contains(String other) {
+            return names.contains(other) || names.stream().anyMatch(other::contains);
         }
     }
 }

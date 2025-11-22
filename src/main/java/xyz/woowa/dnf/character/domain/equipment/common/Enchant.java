@@ -1,7 +1,5 @@
 package xyz.woowa.dnf.character.domain.equipment.common;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.*;
 
 public record Enchant(List<Status> status) {
@@ -12,23 +10,26 @@ public record Enchant(List<Status> status) {
         return StatusType.computeStatus(status);
     }
 
-    @RequiredArgsConstructor
     private enum StatusType {
-        BASE(List.of("힘", "지능", "체력", "정신력")) {
+        BASE("힘", "지능", "체력", "정신력") {
             @Override
             public Status convert(Status status) {
                 return new Status("스탯", status.value());
             }
         },
-        ATTACK(List.of("물리 공격력", "마법 공격력", "독립 공격력")) {
+        ATTACK("물리 공격력", "마법 공격력", "독립 공격력") {
             @Override
             public Status convert(Status status) {
                 return new Status("공격력", status.value());
             }
         },
-        OTHER(Collections.emptyList());
+        OTHER();
 
         private final List<String> names;
+
+        StatusType(String... args) {
+            this.names = List.of(args);
+        }
 
         public Status convert(Status status) {
             return status;
