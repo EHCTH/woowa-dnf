@@ -2,6 +2,7 @@ package xyz.woowa.dnf.chat.application.command.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.woowa.dnf.chat.application.assembler.ChatDtoMapper;
 import xyz.woowa.dnf.chat.application.command.port.inbound.SendChatMessageUseCase;
 import xyz.woowa.dnf.chat.application.command.port.inbound.dto.ChatMessageDto;
@@ -15,6 +16,7 @@ public class ChatMessageService implements SendChatMessageUseCase {
     private final ChatDtoMapper mapper;
 
     @Override
+    @Transactional
     public ChatMessageDto send(Command command) {
         ChatMessage chatMessage = ChatMessage.create(command.roomId(), command.writer(), command.content());
         ChatMessage saved = storePort.save(chatMessage);

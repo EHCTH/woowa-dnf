@@ -2,6 +2,7 @@ package xyz.woowa.dnf.chat.application.query.port.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.woowa.dnf.chat.application.assembler.ChatDtoMapper;
 import xyz.woowa.dnf.chat.application.command.port.inbound.dto.ChatMessageDto;
 import xyz.woowa.dnf.chat.application.port.outbound.ChatMessageStorePort;
@@ -14,7 +15,9 @@ import java.util.List;
 public class GetChatMessageService implements GetChatMessageUseCase {
     private final ChatMessageStorePort storePort;
     private final ChatDtoMapper mapper;
+
     @Override
+    @Transactional(readOnly = true)
     public List<ChatMessageDto> getRecent(String roomId, int size) {
         return storePort.findRecent(roomId, size).stream()
                 .map(mapper::toMap)
