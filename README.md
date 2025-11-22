@@ -37,8 +37,17 @@
 ## 개발 기능 추가
 - **채팅 기능 (예정)**
     - 웹소켓 기반 실시간 채팅
-    - 캐릭터 상세 페이지 우측 하단에 간단한 채팅창 제공
+    - 캐릭터 상세 페이지 우측 탭에  채팅창 제공
     - **악용 방지**: 욕설, 도배, 특정 유저에 대한 `마녀사냥` 등 악용 가능성에 대한 기능은 추후 보완 예정
+    - 운영자 전용 삭제 API:
+      ```bash
+      # 예시: 로컬 개발 환경
+      CHAT_ADMIN_TOKEN=local-token
+  
+      curl -X DELETE \
+        -H "X-CHAT_ADMIN-TOKEN: ${CHAT_ADMIN_TOKEN}" \
+        "http://localhost:8080/internal/admin/chat/rooms/{serverId}/{characterId}"
+      ```
 
 
 ## 기술 스택
