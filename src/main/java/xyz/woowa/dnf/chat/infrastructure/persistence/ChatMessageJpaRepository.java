@@ -1,10 +1,14 @@
 package xyz.woowa.dnf.chat.infrastructure.persistence;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import xyz.woowa.dnf.chat.domain.ChatMessage;
 
-import java.util.List;
 
 public interface ChatMessageJpaRepository extends JpaRepository<ChatMessage, Long> {
-    List<ChatMessage> findTop50ByOrderByCreatedAtDesc();
+    @Query("select m from ChatMessage m " + "where m.roomId = :roomId " + "order by m.createdAt desc")
+    Page<ChatMessage> findByRoomIdOrderByCreatedAtDesc(@Param("roomId") String roomId, Pageable pageable);
 }

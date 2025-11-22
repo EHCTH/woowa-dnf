@@ -16,6 +16,9 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "room_id", nullable = false, length = 100)
+    private String roomId;
+
     @Column(nullable = false, length = 30)
     private String writer;
 
@@ -25,10 +28,12 @@ public class ChatMessage {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public static ChatMessage create(String writer, String content) {
-        return new ChatMessage(writer, content, LocalDateTime.now());
+    public static ChatMessage create(String roomId, String writer, String content) {
+        return new ChatMessage(roomId, writer, content, LocalDateTime.now());
     }
-    private ChatMessage(String writer, String content, LocalDateTime createdAt) {
+
+    private ChatMessage(String roomId, String writer, String content, LocalDateTime createdAt) {
+        this.roomId = roomId;
         this.writer = writer;
         this.content = content;
         this.createdAt = createdAt;

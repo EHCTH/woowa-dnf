@@ -16,7 +16,7 @@ public class ChatMessageService implements SendChatMessageUseCase {
 
     @Override
     public ChatMessageDto send(Command command) {
-        ChatMessage chatMessage = ChatMessage.create(command.writer(), command.content());
+        ChatMessage chatMessage = ChatMessage.create(command.roomId(), command.writer(), command.content());
         ChatMessage saved = storePort.save(chatMessage);
         return mapper.toMap(saved);
     }

@@ -1,6 +1,7 @@
 package xyz.woowa.dnf.chat.interfaces.adapter.inbound;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,13 @@ public class ChatWebSocketController {
 
     private final SendChatMessageUseCase sendChatMessageUseCase;
 
-    @MessageMapping("/chat.send")
-    @SendTo("/topic/chat")
-    public ChatMessageDto send(WebSocketMessage message) {
-        var command = new SendChatMessageUseCase.Command(message.writer(), message.content());
+    @MessageMapping("/chat/{serverId}/{characterId}")
+    @SendTo("/topic/chat/{serverId}/{characterId}")
+    public ChatMessageDto send(@DestinationVariable String serverId,
+                               @DestinationVariable String characterId,
+                               WebSocketMessage message) {
+        String roomId = serverId + ":" + characterId;
+        var command = new SendChatMessageUseCase.Command(roomId, message.writer(), message.content());
         return sendChatMessageUseCase.send(command);
     }
 }

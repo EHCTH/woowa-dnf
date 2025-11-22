@@ -24,10 +24,13 @@ CREATE TABLE IF NOT EXISTS character_snapshot (
   COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS chat_message (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    writer VARCHAR(30) NOT NULL,
-    content VARCHAR(1000) NOT NULL,
-    created_at DATETIME(6) NOT NULL
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    writer     VARCHAR(30)   NOT NULL,
+    content    VARCHAR(1000) NOT NULL,
+    room_id    VARCHAR(100)  NOT NULL DEFAULT 'GLOBAL',
+    created_at DATETIME(6)   NOT NULL,
+
+    KEY idx_chat_message_room_created (room_id, created_at)
 ) ENGINE=InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;

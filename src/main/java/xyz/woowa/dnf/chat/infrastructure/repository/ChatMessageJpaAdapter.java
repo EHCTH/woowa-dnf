@@ -2,6 +2,9 @@ package xyz.woowa.dnf.chat.infrastructure.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import xyz.woowa.dnf.chat.application.port.outbound.ChatMessageStorePort;
 import xyz.woowa.dnf.chat.domain.ChatMessage;
@@ -12,7 +15,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 @Profile("mysql")
-public class ChatMessageJapAdapter implements ChatMessageStorePort {
+public class ChatMessageJpaAdapter implements ChatMessageStorePort {
     private final ChatMessageJpaRepository repository;
 
     @Override
@@ -21,7 +24,9 @@ public class ChatMessageJapAdapter implements ChatMessageStorePort {
     }
 
     @Override
-    public List<ChatMessage> findRecent(int size) {
-        return repository.findTop50ByOrderByCreatedAtDesc();
+    public List<ChatMessage> findRecent(String roomId, int size) {
+        Pageable pageable = PageRequest.of(0, size);
+        Page<ChatMessage> page = repository.findByRoomIdOrderByCreatedAtDesc(roomId, pageable);
+        return page.getContent();
     }
 }

@@ -6,32 +6,27 @@ import org.springframework.stereotype.Repository;
 import xyz.woowa.dnf.chat.application.port.outbound.ChatMessageStorePort;
 import xyz.woowa.dnf.chat.domain.ChatMessage;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
 @Profile("memory")
 public class MemoryChatMessageAdapter implements ChatMessageStorePort {
-    private final HashMap<Long, ChatMessage> store = new HashMap<>();
-    private static final Comparator<ChatMessage> CREATED_AT = Comparator.comparing(ChatMessage::getCreatedAt);
-    private Long seq = 0L;
+    private final Map<String, List<ChatMessage>> messagesByRoom = new HashMap<>();
 
     @Override
     public ChatMessage save(ChatMessage message) {
-        long id = seq++;
-        ChatMessage saved = ChatMessage.create(message.getWriter(), message.getContent());
-        store.put(id, saved);
-        return saved;
+        messagesByRoom.computeIfAbsent(message.getRoomId(), (key) -> new ArrayList<>())
+                .add(message);
+        return message;
     }
 
     @Override
-    public List<ChatMessage> findRecent(int size) {
-        return store.values().stream()
-                .sorted(CREATED_AT.reversed())
-                .limit(50)
-                .sorted(CREATED_AT)
-                .toList();
+    public List<ChatMessage> findRecent(String roomId, int size) {
+        var list = messagesByRoom.getOrDefault(roomId, List.of());
+        int fromIndex = Math.max(0, list.size() - size);
+        List<ChatMessage> result = new ArrayList<>(list.subList(fromIndex, list.size()));
+        Collections.reverse(result);
+        return result;
     }
 }

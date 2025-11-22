@@ -7,5 +7,5 @@ import java.util.List;
 public interface ChatMessageStorePort {
     ChatMessage save(ChatMessage message);
 
-    List<ChatMessage> findRecent(int size);
+    List<ChatMessage> findRecent(String roomId, int size);
 }

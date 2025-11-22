@@ -11,6 +11,7 @@ public class ChatDtoMapper implements DtoMapper<ChatMessage, ChatMessageDto> {
     public ChatMessageDto toMap(ChatMessage chatMessage) {
         return new ChatMessageDto(
                 chatMessage.getId(),
+                chatMessage.getRoomId(),
                 chatMessage.getWriter(),
                 chatMessage.getContent(),
                 chatMessage.getCreatedAt());

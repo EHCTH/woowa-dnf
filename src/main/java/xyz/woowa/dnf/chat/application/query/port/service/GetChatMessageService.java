@@ -15,8 +15,8 @@ public class GetChatMessageService implements GetChatMessageUseCase {
     private final ChatMessageStorePort storePort;
     private final ChatDtoMapper mapper;
     @Override
-    public List<ChatMessageDto> getRecent(int size) {
-        return storePort.findRecent(size).stream()
+    public List<ChatMessageDto> getRecent(String roomId, int size) {
+        return storePort.findRecent(roomId, size).stream()
                 .map(mapper::toMap)
                 .toList();
     }
