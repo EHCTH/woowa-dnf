@@ -22,3 +22,12 @@ CREATE TABLE IF NOT EXISTS character_snapshot (
 ) ENGINE=InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS chat_message (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    writer VARCHAR(30) NOT NULL,
+    content VARCHAR(1000) NOT NULL,
+    created_at DATETIME(6) NOT NULL
+) ENGINE=InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;
