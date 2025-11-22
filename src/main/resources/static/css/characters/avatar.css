@@ -82,7 +82,7 @@
 
 .avatar-card.dense{ padding:0; }
 .avatar-card.dense .avatar-grid{
-  grid-template-columns: 100px 1px 80px 1px 1fr 1px 0.8fr 1px 0.8fr;
+  grid-template-columns: 90px 1px 80px 1px 1fr 1px 0.8fr 1px 0.8fr;
   column-gap: 12px;
   min-height: 56px;
   padding: 8px 12px;

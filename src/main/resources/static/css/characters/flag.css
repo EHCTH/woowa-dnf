@@ -81,7 +81,7 @@
 .flag-card.dense{ padding:0; }
 
 .flag-card.dense .flag-grid{
-  grid-template-columns: 80px 1px 80px 1px 180px 1px 1fr 1px 0.8fr;
+  grid-template-columns: 90px 1px 80px 1px 180px 1px 1fr 1px 0.8fr;
   column-gap:12px;
   min-height:56px;
   padding:8px 12px;
