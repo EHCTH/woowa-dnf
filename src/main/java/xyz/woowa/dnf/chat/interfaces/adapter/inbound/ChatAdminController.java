@@ -2,13 +2,11 @@ package xyz.woowa.dnf.chat.interfaces.adapter.inbound;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import xyz.woowa.dnf.chat.application.command.port.inbound.ClearRoomChatUseCase;
 
-@Profile("mysql")
 @RestController
 @RequestMapping("/internal/admin/chat")
 @RequiredArgsConstructor
