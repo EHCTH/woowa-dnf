@@ -11,4 +11,5 @@ import xyz.woowa.dnf.chat.domain.ChatMessage;
 public interface ChatMessageJpaRepository extends JpaRepository<ChatMessage, Long> {
     @Query("select m from ChatMessage m " + "where m.roomId = :roomId " + "order by m.createdAt desc")
     Page<ChatMessage> findByRoomIdOrderByCreatedAtDesc(@Param("roomId") String roomId, Pageable pageable);
+    void deleteByRoomId(String roomId);
 }

@@ -29,4 +29,9 @@ public class MemoryChatMessageAdapter implements ChatMessageStorePort {
         Collections.reverse(result);
         return result;
     }
+
+    @Override
+    public void clear(String roomId) {
+        messagesByRoom.get(roomId).clear();
+    }
 }

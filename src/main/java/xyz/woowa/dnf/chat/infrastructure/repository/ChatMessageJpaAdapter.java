@@ -2,9 +2,7 @@ package xyz.woowa.dnf.chat.infrastructure.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import xyz.woowa.dnf.chat.application.port.outbound.ChatMessageStorePort;
 import xyz.woowa.dnf.chat.domain.ChatMessage;
@@ -25,8 +23,12 @@ public class ChatMessageJpaAdapter implements ChatMessageStorePort {
 
     @Override
     public List<ChatMessage> findRecent(String roomId, int size) {
-        Pageable pageable = PageRequest.of(0, size);
-        Page<ChatMessage> page = repository.findByRoomIdOrderByCreatedAtDesc(roomId, pageable);
-        return page.getContent();
+        return repository.findByRoomIdOrderByCreatedAtDesc(roomId, PageRequest.of(0, size))
+                .getContent();
+    }
+
+    @Override
+    public void clear(String roomId) {
+        repository.deleteByRoomId(roomId);
     }
 }

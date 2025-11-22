@@ -8,4 +8,6 @@ public interface ChatMessageStorePort {
     ChatMessage save(ChatMessage message);
 
     List<ChatMessage> findRecent(String roomId, int size);
+
+    void clear(String roomId);
 }
