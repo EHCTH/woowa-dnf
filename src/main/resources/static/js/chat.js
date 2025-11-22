@@ -55,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     input.addEventListener('keydown', function (event) {
+        if (event.isComposing || event.keyCode === 229) {
+            return;
+        }
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             sendMessage();
