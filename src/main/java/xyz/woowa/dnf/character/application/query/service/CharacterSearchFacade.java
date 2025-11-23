@@ -2,6 +2,7 @@ package xyz.woowa.dnf.character.application.query.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.woowa.dnf.character.application.command.port.outbound.CharacterRepository;
 import xyz.woowa.dnf.character.application.query.assembler.base.BaseDtoMapper;
 import xyz.woowa.dnf.character.application.query.dto.base.BaseDto;
@@ -37,7 +38,7 @@ public class CharacterSearchFacade {
                 .toList();
     }
 
-
+    @Transactional(readOnly = true)
     public List<BaseDto> guildSearchAll(String guildName) {
         String normalizeGuildName = normalizeName(guildName);
         List<Character> allByGuildName = repository.findAllByGuildName(normalizeGuildName);
@@ -46,7 +47,7 @@ public class CharacterSearchFacade {
                 .sorted(BaseDto::descByFame)
                 .toList();
     }
-
+    @Transactional(readOnly = true)
     public List<BaseDto> adventureSearchAll(String adventureName) {
         String normalizeAdventureName = normalizeName(adventureName);
         List<Character> allByAdventureName = repository.findAllByAdventureName(normalizeAdventureName);
