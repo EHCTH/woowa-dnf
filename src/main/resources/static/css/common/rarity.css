@@ -1,29 +1,29 @@
 [data-rarity="태초"]      { --rarity-color:#34d399; }
-[data-rarity="에픽"]      { --rarity-color:gold; }
-[data-rarity="레전더리"]  { --rarity-color:orange; }
-[data-rarity="유니크"]    { --rarity-color:#ff00ff; }
-[data-rarity="레어"]      { --rarity-color:#8a2be2; }
-[data-rarity="언커먼"]    { --rarity-color:skyblue; }
-[data-rarity="커먼"]      { --rarity-color:gray; }
-[data-rarity="신화"]      { --rarity-color:pink; }
-[data-rarity="크로니클"]  { --rarity-color:#ff00ff; }
-[data-rarity="언노운"]    { --rarity-color:gray; }
+[data-rarity="신화"]      { --rarity-color:#e879f9; }
+[data-rarity="에픽"]      { --rarity-color:#eab308; }
+[data-rarity="레전더리"]  { --rarity-color:#f59e0b; }
+[data-rarity="유니크"]    { --rarity-color:#d63ed1; }
+[data-rarity="레어"]      { --rarity-color:#7c3aed; }
+[data-rarity="언커먼"]    { --rarity-color:#0ea5e9; }
+[data-rarity="커먼"]      { --rarity-color:#6b7280; }
+[data-rarity="크로니클"]  { --rarity-color:#d63ed1; }
+[data-rarity="언노운"]    { --rarity-color:#6b7280; }
 
-[data-emblem-color="노란빛"]    { --emblem-color:#daa520; }
-[data-emblem-color="플래티넘"]    { --emblem-color:orange; }
-[data-emblem-color="붉은빛"]    { --emblem-color:red; }
-[data-emblem-color="녹색빛"]    { --emblem-color:green; }
-[data-emblem-color="푸른빛"]    { --emblem-color:blue; }
-[data-emblem-color="다색"]    { --emblem-color:purple; }
+[data-emblem-color="노란빛"]   { --emblem-color:#fbbf24; }
+[data-emblem-color="플래티넘"] { --emblem-color:#f59e0b; }
+[data-emblem-color="붉은빛"]   { --emblem-color:#f97373; }
+[data-emblem-color="녹색빛"]   { --emblem-color:#4ade80; }
+[data-emblem-color="푸른빛"]   { --emblem-color:#60a5fa; }
+[data-emblem-color="다색"]     { --emblem-color:#a855f7; }
 
-[data-artifact-color="아티팩트블루"]    { --artifact-color:blue; }
-[data-artifact-color="아티팩트그린"]    { --artifact-color:green; }
-[data-artifact-color="아티팩트레드"]    { --artifact-color:red; }
+[data-artifact-color="아티팩트블루"]  { --artifact-color:#60a5fa; }
+[data-artifact-color="아티팩트그린"]  { --artifact-color:#4ade80; }
+[data-artifact-color="아티팩트레드"]  { --artifact-color:#f97373; }
 
 
-[data-tune-color="새겨진 해일의 기억"]    { --tune-color:blue; }
-[data-tune-color="새겨진 돌풍의 기억"]    { --tune-color:green; }
-[data-tune-color="새겨진 볕의 기억"]    { --tune-color:red; }
+[data-tune-color="새겨진 해일의 기억"]    { --tune-color:#60a5fa; }
+[data-tune-color="새겨진 돌풍의 기억"]    { --tune-color:#4ade80; }
+[data-tune-color="새겨진 볕의 기억"]    { --tune-color:#f97373; }
 
 .rarity-text   { color: var(--rarity-color); }
 .rarity-border { border-color: var(--rarity-color); }
