@@ -10,6 +10,7 @@ import java.util.Arrays;
 public enum Slot {
 
     WEAPON("WEAPON", ItemType.WEAPON, "무기"),
+    SUPPORT_WEAPON("SUPPORT_WEAPON", ItemType.WEAPON, "보조무기"),
 
     JACKET("JACKET", ItemType.ARMOR, "상의"),
     SHOULDER("SHOULDER", ItemType.ARMOR, "머리어깨"),
