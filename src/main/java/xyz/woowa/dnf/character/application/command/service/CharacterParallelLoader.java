@@ -39,37 +39,28 @@ public class CharacterParallelLoader {
         });
     }
 
-    private Character loadWithExecutor(
-            EntityId entityId,
-            GetCharacterDetailUseCase.Command command,
-            CompletableFuture<Base> baseF,
-            ExecutorService executor
-    ) {
-        CompletableFuture<Equipment> equipmentF     = async(() -> query.equipment(command), executor);
-        CompletableFuture<Avatars> avatarsF         = async(() -> query.avatars(command), executor);
-        CompletableFuture<BuffEquipment> buffEquipF = async(() -> query.buffEquipment(command), executor);
-        CompletableFuture<Avatars> buffAvatarsF     = async(() -> query.buffAvatars(command), executor);
-        CompletableFuture<Creature> creatureF       = async(() -> query.creature(command), executor);
-        CompletableFuture<Creature> buffCreatureF   = async(() -> query.buffCreature(command), executor);
-        CompletableFuture<Flag> flagF               = async(() -> query.flag(command), executor);
+    private Character loadWithExecutor(EntityId entityId,
+                                       GetCharacterDetailUseCase.Command command,
+                                       CompletableFuture<Base> baseF,
+                                       ExecutorService executor) {
+        CharacterFutures futures = accumulate(baseF, command, executor);
+        return futures.toCharacter(entityId);
 
-        CompletableFuture.allOf(
-                baseF, equipmentF, avatarsF,
-                buffEquipF, buffAvatarsF,
-                creatureF, buffCreatureF, flagF
-        ).join();
+    }
 
-        return Character.builder()
-                .id(entityId)
-                .base(baseF.join())
-                .equipment(equipmentF.join())
-                .buffEquipment(buffEquipF.join())
-                .avatars(avatarsF.join())
-                .buffAvatars(buffAvatarsF.join())
-                .creature(creatureF.join())
-                .buffCreature(buffCreatureF.join())
-                .flag(flagF.join())
-                .build();
+    private CharacterFutures accumulate(CompletableFuture<Base> baseF,
+                                        GetCharacterDetailUseCase.Command command,
+                                        ExecutorService executor) {
+        return new CharacterFutures(
+                baseF,
+                async(() -> query.equipment(command), executor),
+                async(() -> query.avatars(command), executor),
+                async(() -> query.buffEquipment(command), executor),
+                async(() -> query.buffAvatars(command), executor),
+                async(() -> query.creature(command), executor),
+                async(() -> query.buffCreature(command), executor),
+                async(() -> query.flag(command), executor)
+        );
     }
 
     private <T> CompletableFuture<T> async(Supplier<T> supplier, Executor executor) {
@@ -84,6 +75,31 @@ public class CharacterParallelLoader {
         } finally {
             long end = System.currentTimeMillis() - start;
             log.info("{} ({} ms)", label, end);
+        }
+    }
+
+    private record CharacterFutures(
+            CompletableFuture<Base> baseF,
+            CompletableFuture<Equipment> equipmentF,
+            CompletableFuture<Avatars> avatarsF,
+            CompletableFuture<BuffEquipment> buffEquipF,
+            CompletableFuture<Avatars> buffAvatarsF,
+            CompletableFuture<Creature> creatureF,
+            CompletableFuture<Creature> buffCreatureF,
+            CompletableFuture<Flag> flagF
+    ) {
+        public Character toCharacter(EntityId entityId) {
+            return Character.builder()
+                    .id(entityId)
+                    .base(baseF.join())
+                    .equipment(equipmentF.join())
+                    .buffEquipment(buffEquipF.join())
+                    .avatars(avatarsF.join())
+                    .buffAvatars(buffAvatarsF.join())
+                    .creature(creatureF.join())
+                    .buffCreature(buffCreatureF.join())
+                    .flag(flagF.join())
+                    .build();
         }
     }
 }
