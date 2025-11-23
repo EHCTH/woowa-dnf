@@ -2,7 +2,3 @@
 
 .reinforce.amp span{ color:#ff00bf; }
 .reinforce.norm span{ color:blue; }
-
-
-[data-reinforce-color="푸른빛"]    { --emblem-color:blue; }
-[data-reinforce-color="다색"]    { --emblem-color:purple; }

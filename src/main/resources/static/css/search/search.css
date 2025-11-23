@@ -11,10 +11,22 @@
 }
 .search-bar select,
 .search-bar input{
-  padding:8px 10px; border:1px solid #e5e7eb; border-radius:8px;
+  padding:8px 10px;border:1px solid #e5e7eb; border-radius:8px;
   font-size:14px;
 }
 .search-bar button{
-  padding:8px 14px; border-radius:8px; border:0;
-  background:#111827; color:#fff; font-weight:700; cursor:pointer;
+  padding:8px 14px;
+  border-radius:8px;
+  border:0;
+  background:#111827;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  transition: all .12s ease;
+}
+
+.search-bar button:hover{
+  background-color: #2563eb;
+  filter:brightness(1.05);
+  transform:translateY(-1px);
 }

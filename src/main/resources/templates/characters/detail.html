@@ -10,6 +10,7 @@
     <script defer th:src="@{/js/tooltip.js}"></script>
     <script defer th:src="@{/js/tab.js}"></script>
     <script defer th:src="@{/js/chat.js}"></script>
+    <script defer th:src="@{/js/refresh.js}"></script>
     <title th:text="|${character.name}- 캐릭터 검색|">캐릭터 검색</title>
 </head>
 <body>
@@ -66,22 +67,27 @@
                     <div class="value" th:text="*{serverName}">카인</div>
                 </div>
                 <div>
-                    <div class="character-page label">모험단</div>
+                    <div class="label">모험단</div>
                     <a th:href="@{/search(server='adventure', name=*{adventureName})}">
                         <div class="value" th:text="*{adventureName} ?: '-'">ORACLE</div>
                     </a>
                 </div>
 
                 <div>
-                    <div class="character-page label">길드</div>
+                    <div class="label">길드</div>
                     <a th:href="@{/search(server='guild', name=*{guildName})}">
                         <div class="value" th:text="*{guildName} ?: '-'">아람</div>
                     </a>
                 </div>
             </div>
-            <form th:action="@{/characters/{server}/{id}/refresh(server=*{serverId}, id=*{characterId})}"
+            <form id="refresh-form"
+                  th:action="@{/characters/{server}/{id}/refresh(server=*{serverId}, id=*{characterId})}"
                   method="post">
-                <button type="submit" class="refresh-btn">정보 갱신</button>
+                <button type="submit"
+                        class="refresh-btn"
+                        onclick="return onRefreshClick();">
+                    정보 갱신
+                </button>
             </form>
         </div>
     </div>

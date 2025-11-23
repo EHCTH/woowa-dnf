@@ -118,9 +118,11 @@
   box-shadow: 0 8px 20px rgba(0,0,0,.15);
   position:static;
   z-index:0;
+  cursor:pointer;
+  transition: all .12s ease;
 }
 .sl-button:hover{
-  background:#167e78;
+  background-color: #2563eb;
   color:#fff;
   transform:translateY(-1px);
 }
