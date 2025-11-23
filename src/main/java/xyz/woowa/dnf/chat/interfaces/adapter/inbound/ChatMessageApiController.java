@@ -15,6 +15,7 @@ public class ChatMessageApiController {
 
     @GetMapping("/messages")
     public List<ChatMessageDto> getRecentMessages(@RequestParam String roomId, @RequestParam(defaultValue = "50") int size) {
-        return getChatMessageUseCase.getRecent(roomId, size);
+        int limit = Math.min(Math.max(size, 1), 100);
+        return getChatMessageUseCase.getRecent(roomId, limit);
     }
 }
