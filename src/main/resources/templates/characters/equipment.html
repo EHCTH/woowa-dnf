@@ -71,6 +71,23 @@
                     </div>
                 </div>
 
+                <div class="icon-wrap tooltip" tabindex="0" th:if="*{skin.hasId}">
+                    <img class="icon-48"
+                         th:src="|https://img-api.neople.co.kr/df/items/*{skin.id}|"
+                         alt="upgrade">
+                    <div class="tooltip-card" th:attr="data-rarity=*{skin.rarity}">
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{skin.rarity}"
+                              th:text="*{skin.displayName}">스킨 아이템</span>
+
+                        <span class="tooltip-line t-rarity rarity-text"
+                              th:attr="data-rarity=*{skin.rarity}"
+                              th:text="*{skin.rarity}">레어리티</span>
+                    </div>
+                </div>
+
+
                 <div class="icon-wrap tooltip" tabindex="0" th:if="*{fusion.hasId}">
                     <img class="icon-48"
                          th:src="|https://img-api.neople.co.kr/df/items/*{fusion.id}|"
@@ -115,13 +132,23 @@
                 <div class="main rarity-text"
                      th:attr="data-rarity=*{base.rarity}"
                      th:text="|*{tune.display} *{base.itemName.name}"|>찬란한 황금향의 축복 - 목걸이</div>
-                <div th:text="*{fusion.name}">테아나 : 끝나지 않는 도전</div>
+
+                <div class="sub rarity-text"
+                     th:if="*{skin.hasId}"
+                     th:attr="data-rarity=*{skin.rarity}"
+                     th:text="*{skin.displayName}">스킨 아이템</div>
+
+                <div class="sub rarity-text"
+                     th:if="*{fusion.hasId}"
+                     th:attr="data-rarity=*{fusion.rarity}"
+                     th:text="*{fusion.name}">테아나 : 끝나지 않는 도전</div>
 
                 <span class="sub tune-text"
                       th:if="*{tune.hasName}"
                       th:attr="data-tune-color=*{tune.name}"
                       th:text="*{tune.name}">새겨진 해일의 기억
                 </span>
+
                 <span class="sub green-text"
                       th:if="*{tune.hasLevel}"
                       th:text="|(*{tune.level} 조율)|">0 조율

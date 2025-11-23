@@ -12,6 +12,7 @@ import java.util.*;
 public class EquipmentItemDto {
     @NonNull private final ItemProfileDto base;
     @NonNull private final ReinforceDto reinforce;
+    private final SkinDto skin;
     private final ItemDetailDto detail;
     private final ItemProfileDto fusion;
     private final ItemDetailDto fusionDetail;

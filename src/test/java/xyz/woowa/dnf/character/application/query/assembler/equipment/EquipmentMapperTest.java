@@ -69,6 +69,7 @@ class EquipmentMapperTest {
                 "무기",
                 "cc886b1bcf2a72f9d7a8c9f8eba8bbca",
                 "크로스슈터",
+                new ExternalEquipmentPort.Skin("", "", ""),
                 ExternalEquipmentPort.Rarity.태초,
                 "", "", "13", "",
                 new ExternalEquipmentPort.Enchant(
@@ -84,7 +85,8 @@ class EquipmentMapperTest {
                         List.of(new ExternalEquipmentPort.Stat("힘", "10")),
                         Collections.emptyList(),
                         new ExternalEquipmentPort.ItemBuff("버프 설명"))
-                , null);
+                , null)
+                ;
         return List.of(item);
     }
 

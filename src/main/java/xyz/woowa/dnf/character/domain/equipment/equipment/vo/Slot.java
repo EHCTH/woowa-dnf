@@ -30,6 +30,8 @@ public enum Slot {
     FLAG("FLAG", ItemType.ADD_EQUIPMENT, "휘장", 15),
     GEM("GEM", ItemType.STACKABLE, "젬", 16),
 
+    SKIN_WEAPON("SKIN_WEAPON", ItemType.WEAPON, "무기 스킨", 17),
+
     UNKNOWN("UNKNOWN", ItemType.NONE, "NONE", Integer.MAX_VALUE);
 
     private final String id;

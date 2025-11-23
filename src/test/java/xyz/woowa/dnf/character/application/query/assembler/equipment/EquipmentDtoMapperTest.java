@@ -75,6 +75,7 @@ class EquipmentDtoMapperTest {
 
         return EquipmentItem.builder()
                 .baseItemProfile(itemProfile)
+                .skin(Skin.EMPTY)
                 .reinForce(ReinForce.enforce("13"))
                 .baseItemDetail(
                         new ItemDetail(

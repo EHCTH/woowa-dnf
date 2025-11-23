@@ -54,15 +54,17 @@ public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
                 .buffExplainHtml(htmlMapper.buffExplainHtml(setItemInfo.description().buffExplain()))
                 .build();
     }
+
     private EquipmentItemDto mapToEquipmentItemDto(EquipmentItem equipmentItem) {
         ItemProfile baseItemProfile = equipmentItem.getBaseItemProfile();
         ReinForce reinForce = equipmentItem.getReinForce();
         ItemDetail itemDetail = equipmentItem.getBaseItemDetail();
         ItemProfile fusionItemProfile = equipmentItem.getFusionItemProfile();
         ItemDetail fusionItemDetail = equipmentItem.getFusionItemDetail();
-
+        Skin skin = equipmentItem.getSkin();
         return EquipmentItemDto.builder()
                 .base(toItemProfile(baseItemProfile))
+                .skin(toSkin(skin))
                 .reinforce(toReinforce(reinForce.name(), reinForce.value()))
                 .detail(toBaseItemDetail(itemDetail))
                 .fusion(toItemProfile(fusionItemProfile))
@@ -71,15 +73,23 @@ public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
                 .tune(toTune(equipmentItem.getTune()))
                 .build();
     }
+
+    private SkinDto toSkin(Skin skin) {
+        ItemName base = skin.base();
+        return new SkinDto(skin.slot().getDisplayName(), base.id(), base.name(), skin.rarity().name());
+    }
+
     private ReinforceDto toReinforce(String name, String value) {
         if (name.equals("강화")) {
             return ReinforceDto.enforce(value);
         }
         return ReinforceDto.dimension(name, value);
     }
+
     private TuneDto toTune(Tune tune) {
         return new TuneDto(tune.level(), tune.name(), toStatus(tune.status()));
     }
+
     private ItemDetailDto toBaseItemDetail(ItemDetail itemDetail) {
         List<NameValue> status = toStatus(itemDetail.itemStatus());
         String itemExplainHtml = htmlMapper.itemExplainHtml(itemDetail.itemExplain());
@@ -98,6 +108,7 @@ public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
                 .tune(itemDetail.tune())
                 .build();
     }
+
     private ItemDetailDto toFusionItemDetail(ItemDetail fusionItemDetail) {
         return ItemDetailDto.builder()
                 .fame(fusionItemDetail.fame())
@@ -106,6 +117,7 @@ public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
                 .itemExplainHtml(htmlMapper.itemExplainHtml(fusionItemDetail.itemExplain()))
                 .build();
     }
+
     private ItemProfileDto toItemProfile(ItemProfile itemProfile) {
         ItemName itemName = itemProfile.itemName();
         ItemName itemTypeDetail = itemProfile.itemTypeDetail();

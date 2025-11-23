@@ -34,14 +34,14 @@ public interface ExternalEquipmentPort {
             @JsonSetter(nulls = Nulls.AS_EMPTY) String itemType,
             @JsonSetter(nulls = Nulls.AS_EMPTY) String itemTypeDetailId,
             @JsonSetter(nulls = Nulls.AS_EMPTY) String itemTypeDetail,
+            Skin skin,
             Rarity itemRarity,
-            @JsonSetter(nulls = Nulls.AS_EMPTY) String setItemId,         // null 허용 (Optional 안 써도 Jackson이 null 주입)
-            @JsonSetter(nulls = Nulls.AS_EMPTY) String setItemName,       // null 허용
+            @JsonSetter(nulls = Nulls.AS_EMPTY) String setItemId,
+            @JsonSetter(nulls = Nulls.AS_EMPTY) String setItemName,
             @JsonSetter(nulls = Nulls.AS_EMPTY) String reinforce,
-            @JsonSetter(nulls = Nulls.AS_EMPTY) String amplificationName, // null 허용
-            Enchant enchant,    // null 허용
+            @JsonSetter(nulls = Nulls.AS_EMPTY) String amplificationName,
+            Enchant enchant,
             @JsonSetter(nulls = Nulls.AS_EMPTY, contentNulls = Nulls.SKIP) List<Stat> status,
-            // 혹시 루트에 status가 안 온다면 제거해도 됨
             @JsonSetter(nulls = Nulls.AS_EMPTY, contentNulls = Nulls.SKIP) List<Tune> tune,
             FusionOption fusionOption,
             UpgradeInfo upgradeInfo,
@@ -54,9 +54,14 @@ public interface ExternalEquipmentPort {
         태초, 에픽, 레전더리, 유니크, 레어, 언커먼, 커먼, 크로니클, 신화, 언노운
     }
 
+    record Skin(
+            @JsonSetter(nulls = Nulls.AS_EMPTY) String itemId,
+            @JsonSetter(nulls = Nulls.AS_EMPTY) String itemName,
+            @JsonSetter(nulls = Nulls.AS_EMPTY) String itemRarity) {
+    }
 
-    record Enchant(@JsonSetter(nulls = Nulls.AS_EMPTY) List<Stat> status,
-                   @JsonSetter(nulls = Nulls.AS_EMPTY) List<ReinforceSkill> reinforceSkill) {
+    record Enchant(@JsonSetter(nulls = Nulls.AS_EMPTY, contentNulls = Nulls.SKIP) List<Stat> status,
+                   @JsonSetter(nulls = Nulls.AS_EMPTY, contentNulls = Nulls.SKIP) List<ReinforceSkill> reinforceSkill) {
         public List<Stat> getStatus() {
             return status;
         }
@@ -153,7 +158,7 @@ public interface ExternalEquipmentPort {
                              @JsonSetter(nulls = Nulls.AS_EMPTY) String itemTypeDetail,
                              @JsonSetter(nulls = Nulls.AS_EMPTY, contentNulls = Nulls.SKIP) List<Stat> itemStatus,
                              @JsonSetter(nulls = Nulls.AS_EMPTY) String itemFlavorText) {
-        public static UpgradeInfoDetail EMPTY = new UpgradeInfoDetail("", Rarity.언노운,"","", Collections.emptyList(), "");
+        public static UpgradeInfoDetail EMPTY = new UpgradeInfoDetail("", Rarity.언노운, "", "", Collections.emptyList(), "");
     }
 
 

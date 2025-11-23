@@ -65,6 +65,7 @@ public class EquipmentMapper {
         ItemDetail itemDetail = toItemDetail(item.itemDetail());
         return EquipmentItem.builder()
                 .baseItemProfile(toItemProfile(item))
+                .skin(toSkin(item.skin()))
                 .baseItemDetail(itemDetail)
                 .fusionItemProfile(toFusionItemProfile(item, item.upgradeInfo(), item.upgradeInfoDetail()))
                 .fusionItemDetail(toFusionItemDetail(item.fusionOption(), item.upgradeInfoDetail()))
@@ -72,6 +73,12 @@ public class EquipmentMapper {
                 .tune(tune)
                 .enchant(enchant)
                 .build();
+    }
+    private Skin toSkin(ExternalEquipmentPort.Skin skin) {
+        if (skin == null) {
+            return Skin.EMPTY;
+        }
+        return new Skin(Slot.SKIN_WEAPON, new ItemName(skin.itemId(), skin.itemName()), Rarity.findByValue(skin.itemRarity()));
     }
 
     private ItemProfile toItemProfile(ExternalEquipmentPort.Item item) {
