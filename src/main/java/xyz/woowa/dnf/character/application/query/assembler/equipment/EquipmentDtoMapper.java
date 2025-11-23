@@ -15,11 +15,16 @@ import xyz.woowa.dnf.character.domain.equipment.equipment.Equipment;
 import xyz.woowa.dnf.character.domain.equipment.equipment.vo.*;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 @Component
 @RequiredArgsConstructor
 public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
+    private static final ToIntFunction<EquipmentItemDto> SLOT_KEY = equipmentItemDto ->
+            Slot.orderByDisplayName(equipmentItemDto.getBase().slot());
+    private static final Comparator<EquipmentItemDto> SLOT_ORDER_BY = Comparator.comparingInt(SLOT_KEY);
     private final CommonValueDtoMapper commonValueDtoMapper;
     private final HtmlMapper htmlMapper;
 
@@ -28,6 +33,7 @@ public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
         SetItemInfoDto setItemInfoDto = toSetItemInfoDto(equipment.getSetItemInfo());
         List<EquipmentItemDto> equipmentItemsDto = equipment.getEquipmentItems().stream()
                 .map(this::mapToEquipmentItemDto)
+                .sorted(SLOT_ORDER_BY)
                 .toList();
         return new EquipmentDto(setItemInfoDto, equipmentItemsDto);
     }
@@ -38,7 +44,6 @@ public class EquipmentDtoMapper implements DtoMapper<Equipment, EquipmentDto> {
         }
         ItemName itemName = setItemInfo.itemName();
         ItemValue baseItem = commonValueDtoMapper.toItemValue(itemName.id(), itemName.name());
-        htmlMapper.itemExplainHtml(setItemInfo.description().explain());
         RaritySetPoint raritySetPoint = setItemInfo.raritySetPoint();
         return SetItemInfoDto.builder()
                 .baseItem(baseItem)

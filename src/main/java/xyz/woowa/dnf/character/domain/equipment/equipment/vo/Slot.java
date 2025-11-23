@@ -9,35 +9,33 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public enum Slot {
 
-    WEAPON("WEAPON", ItemType.WEAPON, "무기"),
-    SUPPORT_WEAPON("SUPPORT_WEAPON", ItemType.WEAPON, "보조무기"),
+    WEAPON("WEAPON", ItemType.WEAPON, "무기", 1),
+    SUPPORT_WEAPON("SUPPORT_WEAPON", ItemType.WEAPON, "보조무기", 2),
+    TITLE("TITLE", ItemType.ACCESSORY, "칭호", 3),
 
-    JACKET("JACKET", ItemType.ARMOR, "상의"),
-    SHOULDER("SHOULDER", ItemType.ARMOR, "머리어깨"),
-    PANTS("PANTS", ItemType.ARMOR, "하의"),
-    SHOES("SHOES", ItemType.ARMOR, "신발"),
-    WAIST("WAIST", ItemType.ARMOR, "벨트"),
+    JACKET("JACKET", ItemType.ARMOR, "상의", 4),
+    SHOULDER("SHOULDER", ItemType.ARMOR, "머리어깨", 5),
+    PANTS("PANTS", ItemType.ARMOR, "하의", 6),
+    SHOES("SHOES", ItemType.ARMOR, "신발", 7),
+    WAIST("WAIST", ItemType.ARMOR, "벨트", 8),
 
-    TITLE("TITLE", ItemType.ACCESSORY, "칭호"),
-    AMULET("AMULET", ItemType.ACCESSORY, "목걸이"),
-    WRIST("WRIST", ItemType.ACCESSORY, "팔찌"),
-    RING("RING", ItemType.ACCESSORY, "반지"),
+    AMULET("AMULET", ItemType.ACCESSORY, "목걸이", 9),
+    WRIST("WRIST", ItemType.ACCESSORY, "팔찌", 10),
+    RING("RING", ItemType.ACCESSORY, "반지", 11),
 
-    SUPPORT("SUPPORT", ItemType.SUPPORT, "보조장비"),
-    MAGIC_STON("MAGIC_STON", ItemType.SUPPORT, "마법석"),
-    EARRING("EARRING", ItemType.SUPPORT, "귀걸이"),
+    SUPPORT("SUPPORT", ItemType.SUPPORT, "보조장비", 12),
+    MAGIC_STON("MAGIC_STON", ItemType.SUPPORT, "마법석", 13),
+    EARRING("EARRING", ItemType.SUPPORT, "귀걸이", 14),
 
-    FLAG("FLAG", ItemType.ADD_EQUIPMENT, "휘장"),
-    GEM("GEM", ItemType.STACKABLE, "젬"),
+    FLAG("FLAG", ItemType.ADD_EQUIPMENT, "휘장", 15),
+    GEM("GEM", ItemType.STACKABLE, "젬", 16),
 
-    UNKNOWN("UNKNOWN", ItemType.NONE,"NONE");
+    UNKNOWN("UNKNOWN", ItemType.NONE, "NONE", Integer.MAX_VALUE);
 
     private final String id;
-
     private final ItemType itemType;
-
     private final String displayName;
-
+    private final int order;
 
 
     public static Slot findById(String id) {
@@ -47,9 +45,21 @@ public enum Slot {
                 .orElse(UNKNOWN);
     }
 
+    public static int orderByDisplayName(String displayName) {
+        return fromDisplayName(displayName).order;
+    }
+
+    private static Slot fromDisplayName(String displayName) {
+        return Arrays.stream(values())
+                .filter(slot -> slot.displayName.equals(displayName))
+                .findFirst()
+                .orElse(UNKNOWN);
+    }
+
+
     @Getter
     enum ItemType {
-        WEAPON, ARMOR,ACCESSORY,SUPPORT,ADD_EQUIPMENT,STACKABLE,NONE
+        WEAPON, ARMOR, ACCESSORY, SUPPORT, ADD_EQUIPMENT, STACKABLE, NONE
 
     }
 }
