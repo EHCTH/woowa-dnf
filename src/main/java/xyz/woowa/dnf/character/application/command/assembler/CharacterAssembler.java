@@ -39,21 +39,26 @@ public class CharacterAssembler {
     public EquipmentDto toEquipmentDto(Equipment equipment) {
         return equipmentDtoMapper.toMap(equipment);
     }
+
     public AvatarDto toAvatarDto(Avatar avatar) {
         return avatarDtoMapper.toMap(avatar);
     }
+
     public CreatureDto toCreatureDto(Creature creature) {
         return creatureDtoMapper.toMap(creature);
     }
+
     public AvatarsDto toAvatarsDto(Avatars avatars) {
         return avatars.getAvatars()
                 .stream()
                 .map(this::toAvatarDto)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), AvatarsDto::new));
     }
+
     public BuffEquipmentDto toBuffEquipmentDto(BuffEquipment buffEquipment) {
         return buffEquipmentDtoMapper.toMap(buffEquipment);
     }
+
     public FlagDto toFlagDto(Flag flag) {
         return flagDtoMapper.toMap(flag);
     }

@@ -30,6 +30,9 @@ public enum AvatarSlot {
                 .findAny()
                 .orElse(EMPTY);
     }
+    public static boolean isBuffAvatar(AvatarSlot other) {
+        return other == AvatarSlot.JACKET || other == AvatarSlot.PANTS;
+    }
     public boolean hasEmpty() {
         return this == EMPTY;
     }

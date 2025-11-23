@@ -45,11 +45,11 @@
                     <div class="tooltip-card">
                         <span class="tooltip-line t-rarity rarity-text"
                               th:attr="data-rarity=*{base.rarity}"
-                              th:text="*{base.itemName.name}">찬란한 황금향의 축복 - 목걸이</span>
+                              th:text="*{base.itemName.name}">짙은 심연의 편린 크로스슈터 : 사냥을 시작해볼까!</span>
 
                         <span class="tooltip-line t-rarity rarity-text"
                               th:attr="data-rarity=*{base.rarity}"
-                              th:text="*{base.rarity}">레어리티</span>
+                              th:text="*{base.rarity}">유니크</span>
 
                         <span class="tooltip-line t-fame"
                               th:text="|모험가 명성: *{base.fame}|">모험가 명성: 0</span>
@@ -83,7 +83,7 @@
          th:each="avatar : ${character.buffAvatars}"
          th:object="${avatar}">
         <div class="avatar-grid">
-            <div class="col slot" th:text="*{base.slot}">무기</div>
+            <div class="col slot" th:text="*{base.slot}">상의 아바타</div>
 
             <div class="divider"></div>
 
@@ -95,7 +95,7 @@
                     <div class="tooltip-card">
                         <span class="t-rarity rarity-text"
                               th:attr="data-rarity=*{base.rarity}"
-                              th:text="*{base.itemName.name}">아바타</span>
+                              th:text="*{base.itemName.name}">레어 상의 클론 아바타</span>
 
                         <span class="tooltip-line t-rarity rarity-text"
                               th:attr="data-rarity=*{base.rarity}"
@@ -126,7 +126,7 @@
             <div class="col name">
                 <div class="main rarity-text"
                      th:attr="data-rarity=*{base.rarity}"
-                     th:text="*{base.itemName.name}">아바타 네임</div>
+                     th:text="*{base.itemName.name}">레어 상의 클론 아바타</div>
             </div>
 
             <div class="divider"></div>
