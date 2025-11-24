@@ -1,91 +1,22 @@
 # WOOWA-DNF
 
-던전앤파이터 캐릭터 정보를 조회하고 장비/아바타/버프 정보를 한눈에 볼 수 있는 웹 서비스입니다.  
-네오플 오픈 API를 이용해 캐릭터 정보를 조회합니다
-아직 미완성이지만 한 번 안해본 걸 시도해보기 위해서 DB연결과 CI/CD까지 해보려고 진행하였습니다
-왜 이 개발을 시작하였나면 던담이라는 사이트는 데미지 * 스킬 기준 자체가 부합하지 않다고 생각하여
-진행하게 되었습니다,
-추후에 데미지 로직과 스킬 로직을 추가 업데이트 하고 채팅창도 넣어볼 예정입니다
+던전앤파이터 캐릭터 정보를 조회하고 **정보** 를 한눈에 볼 수 있는 웹 서비스입니다.  
+네오플 오픈 API를 이용해 캐릭터 정보를 조회하며, 개인적으로 데미지·스킬 기준을 직접 정의하고 싶어서 시작한 프로젝트입니다
+또한 단순 조회를 넘어서 **DB 연동, 테스트 코드, CI/CD, Docker, AWS EC2, Nginx, HTTPS, WebSocket 채팅**까지 한 번에 경험해 보는 것을 목표로 하였습니다
+> 🔗 배포 주소  
+> `https://woowa-dnf.xyz`
 
 ---
 
-## 주요 기능
-
-- **캐릭터 검색**
-    - 서버 + 캐릭터명으로 검색
-    - 모험단 이름으로 전체 캐릭터 검색
-    - 길드 이름으로 전체 캐릭터 검색
-
-- **캐릭터 상세 조회**
-    - 기본 정보: 서버, 레벨, 직업, 명성, 모험단명, 길드명 등
-    - 장비 정보: 무기/방어구/악세서리/보조장비/휘장
-    - 버프 장비: 버프용 장비 세트, 스킬 정보
-    - 아바타 & 버프 아바타: 부위별 아바타, 엠블렘 정보
-    - 크리쳐 & 버프 크리쳐: 아티팩트, 스킬 정보
-    - 휘장(Flag) 정보
-
-- **병렬 조회 & 성능 최적화**
-    - `CharacterParallelLoader`에서 Java 21 **Virtual Thread** + `CompletableFuture`로 외부 API 병렬 호출
-    - AOP 기반 캐릭터 조회/갱신 로그 및 실행 시간 측정
-
-- **캐릭터 스냅샷 저장**
-    - `개발` **메모리 기반 저장소(Map<EntityId, Character>)** 사용
-    - `운영` **MySQL** 사용
-
----
-
-## 개발 기능 추가
-- **채팅 기능 (예정)**
-    - 웹소켓 기반 실시간 채팅
-    - 캐릭터 상세 페이지 우측 탭에  채팅창 제공
-    - **악용 방지**: 욕설, 도배, 특정 유저에 대한 `마녀사냥` 등 악용 가능성에 대한 기능은 추후 보완 예정
-    - 운영자 전용 삭제 API:
-      ```bash
-      CHAT_ADMIN_TOKEN=local-token
-      ```
-      
-      ```bash
-      curl -X DELETE \
-        -H "X-CHAT_ADMIN-TOKEN: ${CHAT_ADMIN_TOKEN}" \
-        "http://localhost:8080/internal/admin/chat/rooms/{serverId}/{characterId}"
-      ```
+## 목차
+1. [초기 세팅](docs/setting.md)
+2. [아키텍처 & 설계](docs/architecture.md)
+3. [주요 기능](docs/main.md)
+4. [채팅 기능](docs/chat.md)
+5. [기술 스택](docs/tech.md)
+6. [향후 계획](docs/roadmap.md)
 
 
-## 기술 스택
-
-### Backend
-
-- Java 21
-- Spring Boot 3.5.7
-- Spring MVC, Spring Validation
-- Spring AOP (캐릭터 조회/갱신 로그)
-
-### View
-
-- Thymeleaf
-- HTML/CSS
-
-### Database
-
-- 메모리 Map 기반 Repository (개발용)
-- MySQL 8.0.31 + JPA (운영용)
-
-### Infra & DevOps
-
-- Docker (애플리케이션 / MySQL 컨테이너)
-- AWS EC2 (Ubuntu, 배포 서버)
-- AWS Route 53 (도메인 연결)
-- GitHub Actions (CI/CD 파이프라인 구현)
-- Nginx (EC2 호스트)
-
-### Build & 기타
-
-- Gradle
-- Lombok
-
-## 테스트 작성
-
-- [x] 도메인 로직 테스트 작성
-- [x] 리포지토리 테스트 작성
-- [x] 매퍼 테스트 작성
-- [x] 퍼사드 오케스트레이션 테스트 작성
+## 데이터 출처
+- 이 서비스는 네오플에서 제공하는 던전앤파이터 오픈 API를 사용하여 캐릭터 및 장비 정보를 조회합니다.
+- 게임 데이터 및 API 결과에 대한 저작권은 모두 네오플(Neople Inc.)에 있습니다.
