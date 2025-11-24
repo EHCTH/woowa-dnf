@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 @Profile("mysql")
-public class ChatMessageJpaAdapter implements ChatMessageStorePort {
+public class JpaChatMessageAdapter implements ChatMessageStorePort {
     private final ChatMessageJpaRepository repository;
 
     @Override
