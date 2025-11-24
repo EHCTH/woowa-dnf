@@ -7,7 +7,7 @@ import xyz.woowa.dnf.character.application.command.port.outbound.CharacterReposi
 import xyz.woowa.dnf.character.domain.Character;
 import xyz.woowa.dnf.character.domain.base.EntityId;
 import xyz.woowa.dnf.character.domain.base.Server;
-import xyz.woowa.dnf.character.infrastructure.repository.MemoryCharacterRepository;
+import xyz.woowa.dnf.character.infrastructure.repository.MemoryCharacterAdapter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -19,7 +19,7 @@ class SaveCharacterServiceTest {
 
     @BeforeEach
     void init() {
-        memoryRepository = new MemoryCharacterRepository();
+        memoryRepository = new MemoryCharacterAdapter();
         service = new SaveCharacterService(memoryRepository);
     }
 

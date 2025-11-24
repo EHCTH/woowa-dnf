@@ -12,12 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class MemoryCharacterRepositoryTest {
+class MemoryCharacterAdapterTest {
     private CharacterRepository repository;
 
     @BeforeEach
     void init() {
-        repository = new MemoryCharacterRepository();
+        repository = new MemoryCharacterAdapter();
     }
 
     @Test

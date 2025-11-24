@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 @Profile("mysql")
 @RequiredArgsConstructor
-public class JpaCharacterRepository implements CharacterRepository {
+public class JpaCharacterAdapter implements CharacterRepository {
     private final CharacterSnapshotJpaRepository jpaRepository;
     private final CharacterSnapshotMapper mapper;
 

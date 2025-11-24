@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Repository
 @Profile("memory")
-public class MemoryCharacterRepository implements CharacterRepository {
+public class MemoryCharacterAdapter implements CharacterRepository {
     private final Map<EntityId, Character> characterMap = new HashMap<>();
     @Override
     public void save(Character character) {
@@ -26,16 +26,14 @@ public class MemoryCharacterRepository implements CharacterRepository {
 
     @Override
     public List<Character> findAllByGuildName(String guildName) {
-        List<Character> characters = List.copyOf(characterMap.values());
-        return characters.stream()
+        return characterMap.values().stream()
                 .filter(character -> character.equalsToGuildName(guildName))
                 .toList();
     }
 
     @Override
     public List<Character> findAllByAdventureName(String adventureName) {
-        List<Character> characters = List.copyOf(characterMap.values());
-        return characters.stream()
+        return characterMap.values().stream()
                 .filter(character -> character.equalsToAdventureName(adventureName))
                 .toList();
     }
