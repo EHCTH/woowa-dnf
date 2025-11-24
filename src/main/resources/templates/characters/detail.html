@@ -2,16 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet" th:href="@{/css/characters/top-bar.css}">
+
+    <title th:text="|${character.name}- 캐릭터 검색|">캐릭터 검색</title>
+
     <link rel="stylesheet" th:href="@{/css/app.bundle.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
+    <link rel="stylesheet" th:href="@{/css/characters/top-bar.css}">
     <link rel="stylesheet" th:href="@{/css/chat/chat.css}">
+
     <script defer src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
     <script defer th:src="@{/js/tooltip.js}"></script>
     <script defer th:src="@{/js/tab.js}"></script>
     <script defer th:src="@{/js/chat.js}"></script>
     <script defer th:src="@{/js/refresh.js}"></script>
-    <title th:text="|${character.name}- 캐릭터 검색|">캐릭터 검색</title>
 </head>
 <body>
 <header class="detail-topbar">
@@ -136,5 +142,6 @@
                     characterId=${character.base.characterId})}"></div>
     </div>
 </div>
+<div th:replace="~{footer :: global-footer}"></div>
 </body>
 </html>
